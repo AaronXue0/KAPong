@@ -31,8 +31,12 @@ namespace Role.PlayerSpace
 
         public void Attack()
         {
-            Debug.Log("Attack");
-            //control.DoAnimator(animator, "Attack");
+            control.DoAnimator(animator, "attack");
+        }
+
+        public void Parry()
+        {
+            control.DoAnimator(animator, "parry");
         }
 
         private void Awake()
@@ -56,13 +60,17 @@ namespace Role.PlayerSpace
         {
             im.GamePlay.Disable();
         }
+        private void OnMovement(InputValue value)
+        {
+            Move(value.Get<Vector2>());
+        }
         private void OnAttack(InputValue value)
         {
             Attack();
         }
-        private void OnMovement(InputValue value)
+        private void OnParry(InputValue value)
         {
-            Move(value.Get<Vector2>());
+            Parry();
         }
     }
 }

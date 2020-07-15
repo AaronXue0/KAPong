@@ -2,22 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Control
+namespace Role.PlayerSpace
 {
-    public void DoMove(Rigidbody2D rb, Vector2 force)
+    public class Control
     {
-        rb.MovePosition(force);
+        public void DoMove(Rigidbody2D rb, Vector2 force)
+        {
+            rb.MovePosition(force);
+        }
+        public void DoMove(Transform transform, Vector2 force)
+        {
+            transform.Translate(force);
+        }
+        public void DoAnimator(Animator animator, string name)
+        {
+            animator.SetTrigger(name);
+        }
+        public void DoAnimator(Animator animator, string name, float value)
+        {
+            animator.SetFloat(name, value);
+        }
     }
-    public void DoMove(Transform transform, Vector2 force)
-    {
-        transform.Translate(force);
-    }
-    public void DoAnimator(Animator animator, string name)
-    {
-        animator.SetTrigger(name);
-    }
-    public void DoAnimator(Animator animator, string name, float value)
-    {
-        animator.SetFloat(name, value);
-    }
+
 }

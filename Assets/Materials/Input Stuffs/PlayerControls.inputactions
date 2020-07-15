@@ -20,6 +20,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Parry",
+                    "type": "Button",
+                    "id": "18da43c1-e01a-4060-8cbc-d580bc06827a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -37,10 +45,10 @@
                 {
                     "name": "",
                     "id": "a35bca05-a0c4-4276-b667-f2691f2a8cf0",
-                    "path": "<Joystick>/trigger",
+                    "path": "<AndroidJoystick>/trigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player",
+                    "groups": "",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -108,6 +116,17 @@
                     "processors": "",
                     "groups": "Player",
                     "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cb4b825f-137a-4d28-8394-5c37a61eeb66",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player",
+                    "action": "Parry",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
