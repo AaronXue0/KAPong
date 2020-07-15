@@ -373,6 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 227773779}
   speed: 12
+  strength: 0
 --- !u!212 &227773776
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1706,6 +1707,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 3
   speed: 1
+  sinWave: 0
+  waveMagnitude: 0.5
+  waveFrequency: 20
+  transparency: 0
+  increaseValue: 1
+  decreaseValue: 1
+  isDecreasing: 1
+  color:
+    serializedVersion: 2
+    rgba: 4294967295
 --- !u!1 &2109571536
 GameObject:
   m_ObjectHideFlags: 0

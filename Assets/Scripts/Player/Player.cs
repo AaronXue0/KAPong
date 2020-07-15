@@ -11,6 +11,8 @@ namespace Role.PlayerSpace
         [Header("Attritubes")]
         [SerializeField]
         float speed;
+        [SerializeField]
+        float strength;
 
         [Header("Components")]
         Control control = new Control();

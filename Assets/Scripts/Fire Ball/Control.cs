@@ -10,6 +10,10 @@ namespace Role.BallSpace
         {
             rb.velocity = force;
         }
+        public void DoMove(Transform transform, Vector2 force)
+        {
+            transform.position = transform.position + new Vector3(force.x, force.y, 0);
+        }
         public void BounceHandling(ref float speed, ref Vector2 movement, Transform transform, Collider2D other)
         {
             switch (other.tag)
