@@ -13,6 +13,8 @@ namespace Role.PlayerSpace
         float speed;
         [SerializeField]
         float strength;
+        [SerializeField]
+        LayerMask boundary;
 
         [Header("Components")]
         GameManager gm;
@@ -24,16 +26,18 @@ namespace Role.PlayerSpace
         [Header("Variables")]
         Vector2 movement = Vector2.zero;
 
-        public void GetHurt()
+        public void GetHurt(float hp)
         {
-            control.DoAnimator(animator, "hurt");
+            if(hp <= 0) {
+                control.DoAnimator(animator, "death");
+                Destroy(this);
+            }
+            else control.DoAnimator(animator, "hurt");
         }
         public void Move(Vector2 force)
         {
-            movement = force * speed * Time.deltaTime;
-            movement = movement.normalized * speed * Time.deltaTime;
-            control.DoMove(rb, new Vector2(movement.x + transform.position.x, movement.y + transform.position.y));
-            control.DoAnimator(animator, "movement", Mathf.Abs(movement.x) + Mathf.Abs(movement.y));
+            control.DoAnimator(animator, "movement", Mathf.Abs(force.x) + Mathf.Abs(force.y));
+            BorderHandling(force);
         }
 
         public void Attack()
@@ -82,6 +86,19 @@ namespace Role.PlayerSpace
         private void OnParry(InputValue value)
         {
             Parry();
+        }
+        private void BorderHandling(Vector2 pos)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, pos, 1f, boundary);
+            if (hit)
+            {
+                control.DoMove(rb, new Vector2(transform.position.x, transform.position.y));
+            }
+            else
+            {
+                movement = pos.normalized * speed * Time.deltaTime;
+                control.DoMove(rb, new Vector2(movement.x + transform.position.x, movement.y + transform.position.y));
+            }
         }
     }
 }

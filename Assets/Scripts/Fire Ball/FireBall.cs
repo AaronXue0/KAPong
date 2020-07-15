@@ -99,7 +99,7 @@ namespace Role.BallSpace
         {
             if(other.tag == "Player")
             {
-                if(movement.x < 0 && movement != Vector2.zero && speed >= 1.1f) gm.PlayerHurt();
+                if(movement != Vector2.zero && movement.magnitude >= 1f) gm.PlayerHurt();
             }
             control.BounceHandling(ref speed, ref movement, transform, other);
             Move(movement);

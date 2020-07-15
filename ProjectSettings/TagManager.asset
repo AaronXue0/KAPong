@@ -17,9 +17,9 @@ TagManager:
   - 
   - Fire Ball
   - Player
-  - 
-  - 
-  - 
+  - Enemy
+  - Boundary
+  - Center Boundary
   - 
   - 
   - 
