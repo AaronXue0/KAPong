@@ -19,6 +19,10 @@ namespace Role.BallSpace
             switch (other.tag)
             {
                 case "Player":
+                    if(movement == Vector2.zero) return;
+                    movement = new Vector2(movement.x > 0 ? -0.1f : 0.1f, 0);
+                    break;
+                case "Player Sword":
                     movement = transform.position - other.transform.position;
                     float distance = movement.magnitude;
                     speed = 10 / (Mathf.Abs(distance - 2) + 1);
@@ -27,9 +31,18 @@ namespace Role.BallSpace
         }
         public void BounceHandling(ref float speed, ref Vector2 movement, Rigidbody2D rb, Transform transform, Collision2D other)
         {
-            Vector2 inDirection = movement;
-            Vector2 inNormal = other.contacts[0].normal;
-            movement = Vector2.Reflect(inDirection, inNormal);
+            switch (other.collider.tag)
+            {
+                case "Player":
+                    if(movement == Vector2.zero) return;
+                    movement = new Vector2(movement.x > 0 ? -0.1f : 0.1f, 0);
+                    break;
+                default:
+                    Vector2 inDirection = movement;
+                    Vector2 inNormal = other.contacts[0].normal;
+                    movement = Vector2.Reflect(inDirection, inNormal);
+                    break;
+            }
         }
     }
 

@@ -29,6 +29,7 @@ namespace Role.BallSpace
         [SerializeField]
         Color32 color;
         [Header("Classes")]
+        GameManager gm;
         Control control = new Control();
         Ability ability = new Ability();
         [Header("Components")]
@@ -38,6 +39,13 @@ namespace Role.BallSpace
         [Header("Variables")]
         Vector2 movement = Vector2.zero;
 
+        public Vector2 GetMovement 
+        {
+            get
+            {
+                return movement;
+            }
+        }
         public void SinWave()
         {
             ability.DoSinWave(ref movement, transform, waveFrequency, waveMagnitude);
@@ -89,6 +97,10 @@ namespace Role.BallSpace
         }
         void OnTriggerEnter2D(Collider2D other)
         {
+            if(other.tag == "Player")
+            {
+                if(movement.x < 0 && movement != Vector2.zero && speed >= 1.1f) gm.PlayerHurt();
+            }
             control.BounceHandling(ref speed, ref movement, transform, other);
             Move(movement);
         }
@@ -106,6 +118,10 @@ namespace Role.BallSpace
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             sprite = GetComponent<SpriteRenderer>();
+        }
+        void Start()
+        {
+            gm = FindObjectOfType<GameManager>();
         }
     }
 

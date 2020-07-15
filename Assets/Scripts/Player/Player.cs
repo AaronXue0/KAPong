@@ -15,6 +15,7 @@ namespace Role.PlayerSpace
         float strength;
 
         [Header("Components")]
+        GameManager gm;
         Control control = new Control();
         PlayerControls im;
         Rigidbody2D rb;
@@ -23,6 +24,10 @@ namespace Role.PlayerSpace
         [Header("Variables")]
         Vector2 movement = Vector2.zero;
 
+        public void GetHurt()
+        {
+            control.DoAnimator(animator, "hurt");
+        }
         public void Move(Vector2 force)
         {
             movement = force * speed * Time.deltaTime;
@@ -47,10 +52,14 @@ namespace Role.PlayerSpace
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
         }
-        void FixedUpdate()
+        private void Start()
+        {
+            gm = FindObjectOfType<GameManager>();
+        }
+        private void FixedUpdate()
         {
         }
-        void Update()
+        private void Update()
         {
             Move(movement);
         }
@@ -58,7 +67,7 @@ namespace Role.PlayerSpace
         {
             im.GamePlay.Enable();
         }
-        void OnDisable()
+        private void OnDisable()
         {
             im.GamePlay.Disable();
         }
