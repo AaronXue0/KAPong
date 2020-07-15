@@ -28,6 +28,10 @@ namespace Role.BallSpace
         {
 
         }
+        public void DoShine()
+        {
+
+        }
         public void DoCopy()
         {
 
