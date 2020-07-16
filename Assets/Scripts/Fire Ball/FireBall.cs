@@ -11,15 +11,25 @@ namespace Role.BallSpace
         float maxSpeed;
         [SerializeField]
         float speed;
-        [Header("Abilities")]
+        [Header("Abilities Attritubes")]
         [SerializeField]
-        bool sinWave;
+        float hitCount;
+        [SerializeField]
+        float bounceCount;
+        [SerializeField]
+        float hitCountTriggerAbilityTimes;
+        [SerializeField]
+        float bounceCountTriggerAbilityTimes;
+        [Header("Abilities: Sin Wave")]
+        [SerializeField]
+        public bool sinWave;
         [SerializeField]
         float waveMagnitude = 0.5f;
         [SerializeField]
         float waveFrequency = 20f;
+        [Header("Abilities: Transparency")]
         [SerializeField]
-        bool transparency;
+        public bool transparency;
         [SerializeField]
         byte increaseValue = 5;
         [SerializeField]
@@ -38,8 +48,9 @@ namespace Role.BallSpace
         SpriteRenderer sprite;
         [Header("Variables")]
         Vector2 movement = Vector2.zero;
+        bool isDoingAbility = false;
 
-        public Vector2 GetMovement 
+        public Vector2 GetMovement
         {
             get
             {
@@ -53,11 +64,12 @@ namespace Role.BallSpace
         }
         public void Transparency()
         {
-            if(color.a <= 10) isDecreasing = !isDecreasing;
-            if(isDecreasing) ability.DoTransparency(ref color, decreaseValue);
+            if (color.a <= 10) isDecreasing = !isDecreasing;
+            if (isDecreasing) ability.DoTransparency(ref color, decreaseValue);
             else ability.DoOpacity(ref color, increaseValue);
             sprite.color = color;
-            if(color.a >= 255) {
+            if (color.a >= 255)
+            {
                 transparency = false;
                 isDecreasing = true;
             }
@@ -88,7 +100,8 @@ namespace Role.BallSpace
         }
         void Update()
         {
-            if(transparency) Transparency();
+            if (transparency) Transparency();
+            AbilityHandling();
         }
         void FixedUpdate()
         {
@@ -97,16 +110,18 @@ namespace Role.BallSpace
         }
         void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.tag == "Player")
+            if (other.tag == "Player")
             {
-                if(movement != Vector2.zero && movement.magnitude >= 1f) gm.PlayerHurt();
+                if (movement != Vector2.zero && movement.magnitude >= 1f) gm.PlayerHurt();
             }
+            if (other.tag == "Player Sword") hitCount++;
             control.BounceHandling(ref speed, ref movement, transform, other);
             Move(movement);
         }
         private void OnCollisionEnter2D(Collision2D other)
         {
             ClearState();
+            bounceCount++;
             control.BounceHandling(ref speed, ref movement, rb, transform, other);
         }
         void Awake()
@@ -122,6 +137,17 @@ namespace Role.BallSpace
         void Start()
         {
             gm = FindObjectOfType<GameManager>();
+        }
+        void AbilityHandling()
+        {
+            if(hitCount % hitCountTriggerAbilityTimes != 0 && bounceCount % bounceCountTriggerAbilityTimes != 0) isDoingAbility = false;
+            if (hitCount == 0 || bounceCount == 0 || isDoingAbility) return;
+            if (hitCount % hitCountTriggerAbilityTimes == 0 ||
+                bounceCount % bounceCountTriggerAbilityTimes == 0)
+            {
+                isDoingAbility = true;
+                gm.ShuffleFireBallAbility();
+            }
         }
     }
 

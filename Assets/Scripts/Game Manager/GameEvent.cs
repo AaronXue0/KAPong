@@ -17,20 +17,20 @@ public class GameEvent : MonoBehaviour
     int shuffleTime = 0;
 
     int randomAbility;
+    GameManager gm;
 
-    void Start()
+    public void Shuffle()
     {
-
+        shuffleTime = maxShuffleTime;
+        StartCoroutine(SetImage(shuffleDuration, 0));
+    }
+    void Awake()
+    {  
+        gm = GetComponent<GameManager>();
     }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E)) Shuffle();
-    }
-
-    void Shuffle()
-    {
-        shuffleTime = maxShuffleTime;
-        StartCoroutine(SetImage(shuffleDuration, 0));
     }
     IEnumerator SetImage(float delay, int n)
     {
@@ -49,6 +49,7 @@ public class GameEvent : MonoBehaviour
         {
             randomAbility = Random.Range(0, abilitySprite.Length);
             abilityBox.sprite = abilitySprite[randomAbility];
+            gm.FireBallAbilityTrigger(randomAbility);
         }
     }
 }

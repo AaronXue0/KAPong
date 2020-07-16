@@ -21,35 +21,61 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     float timeLeft;
     [Header("Classes")]
+    GameEvent gameEvent;
     Player player;
     FireBall ball;
 
+    public void FireBallAbilityTrigger(int choosen)
+    {
+        switch(choosen){
+            case 0:
+                ball.sinWave = true;
+                break;
+            case 1:
+                ball.transparency = true;
+                break;
+            case 2:
+                ball.sinWave = true;
+                break;
+            case 3:
+                ball.sinWave = true;
+                break;
+            default:
+                Debug.Log(choosen);
+                break;
+        }
+    }
+    public void ShuffleFireBallAbility()
+    {
+        gameEvent.Shuffle();
+    }
     public void PlayerHurt()
     {
         health1 -= 40;
         player.GetHurt(health1);
-        playerSlider.value = health1;
-        fill.color = gradient.Evaluate(playerSlider.normalizedValue);
+        SetPlayerSlider(playerSlider.normalizedValue);
     }
     public Vector2 GetBallMovement()
     {
         return ball.GetMovement;
     }
-
-    // Start is called before the first frame update
+    void Awake()
+    {
+        gameEvent = GetComponent<GameEvent>();
+    }
     void Start()
     {
         player = FindObjectOfType<Player>();
         ball = FindObjectOfType<FireBall>();
 
+        //Set Player Slider
         playerSlider.value = health1;
         playerSlider.maxValue = health1;
-        fill.color = gradient.Evaluate(1f);
+        SetPlayerSlider(1f);
     }
-
-    // Update is called once per frame
-    void Update()
+    void SetPlayerSlider(float value)
     {
-
+        playerSlider.value = health1;
+        fill.color = gradient.Evaluate(value);
     }
 }
