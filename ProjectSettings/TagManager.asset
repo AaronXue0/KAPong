@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Player Sword
   - FireBall
+  - Flag
   layers:
   - Default
   - TransparentFX

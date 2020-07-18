@@ -120,6 +120,12 @@ namespace Role.BallSpace
         }
         private void OnCollisionEnter2D(Collision2D other)
         {
+            if (other.collider.tag == "Flag")
+            {
+                gm.Goal(this.gameObject, other.collider.gameObject); 
+                //animator.SetTrigger("explode");
+                return;
+            }
             ClearState();
             bounceCount++;
             control.BounceHandling(ref speed, ref movement, rb, transform, other);
@@ -140,7 +146,7 @@ namespace Role.BallSpace
         }
         void AbilityHandling()
         {
-            if(hitCount % hitCountTriggerAbilityTimes != 0 && bounceCount % bounceCountTriggerAbilityTimes != 0) isDoingAbility = false;
+            if (hitCount % hitCountTriggerAbilityTimes != 0 && bounceCount % bounceCountTriggerAbilityTimes != 0) isDoingAbility = false;
             if (hitCount == 0 || bounceCount == 0 || isDoingAbility) return;
             if (hitCount % hitCountTriggerAbilityTimes == 0 ||
                 bounceCount % bounceCountTriggerAbilityTimes == 0)

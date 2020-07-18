@@ -11,23 +11,48 @@ public class GameManager : MonoBehaviour
     public Image fill;
     [Header("Game Attritubes")]
     [SerializeField]
-    float score1;
+    int[] scores;
     [SerializeField]
     float health1;
-    [SerializeField]
-    float score2;
     [SerializeField]
     float health2;
     [SerializeField]
     float timeLeft;
+    [Header("Score Stuffs Component")]
+    [SerializeField]
+    GameObject[] flags;
+    [SerializeField]
+    Text[] scoreText;
+    [SerializeField]
+    GameObject[] scoreEffect;
+    int selectScore;
     [Header("Classes")]
     GameEvent gameEvent;
     Player player;
     FireBall ball;
 
+    public void ScoreAdd(int value)
+    {
+        scores[selectScore] += value;
+        scoreText[selectScore].text = scores[selectScore].ToString(); 
+    }
+    public void Goal(GameObject ball, GameObject flag)
+    {
+        if (flag.name == flags[0].name)
+        {
+            selectScore = 1;
+            Instantiate(scoreEffect[0], ball.transform.position, ball.transform.rotation);
+        }
+        else if (flag.name == flags[1].name)
+        {
+            selectScore = 0;
+            Instantiate(scoreEffect[1], ball.transform.position, ball.transform.rotation);
+        }
+    }
     public void FireBallAbilityTrigger(int choosen)
     {
-        switch(choosen){
+        switch (choosen)
+        {
             case 0:
                 ball.sinWave = true;
                 break;
@@ -55,6 +80,11 @@ public class GameManager : MonoBehaviour
         player.GetHurt(health1);
         SetPlayerSlider(playerSlider.normalizedValue);
     }
+    public void SetPlayerSlider(float value)
+    {
+        playerSlider.value = health1;
+        fill.color = gradient.Evaluate(value);
+    }
     public Vector2 GetBallMovement()
     {
         return ball.GetMovement;
@@ -72,10 +102,5 @@ public class GameManager : MonoBehaviour
         playerSlider.value = health1;
         playerSlider.maxValue = health1;
         SetPlayerSlider(1f);
-    }
-    void SetPlayerSlider(float value)
-    {
-        playerSlider.value = health1;
-        fill.color = gradient.Evaluate(value);
     }
 }
