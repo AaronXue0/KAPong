@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject[] scoreEffect;
     int selectScore;
+    [Header("Ball Instantiate")]
+    [SerializeField]
+    GameObject fireball;
+    [SerializeField]
+    Vector2[] ballSpawnPoint;
     [Header("Classes")]
     GameEvent gameEvent;
     Player player;
@@ -35,6 +40,7 @@ public class GameManager : MonoBehaviour
     {
         scores[selectScore] += value;
         scoreText[selectScore].text = scores[selectScore].ToString(); 
+        BallGenerate();
     }
     public void Goal(GameObject ball, GameObject flag)
     {
@@ -102,5 +108,13 @@ public class GameManager : MonoBehaviour
         playerSlider.value = health1;
         playerSlider.maxValue = health1;
         SetPlayerSlider(1f);
+    }
+    void BallGenerate()
+    {
+        if(selectScore == 0){
+            Instantiate(fireball, ballSpawnPoint[0], Quaternion.Euler(new Vector3(0, 0, 0)));
+        }else if(selectScore == 1){
+            Instantiate(fireball, ballSpawnPoint[1], Quaternion.Euler(new Vector3(0, 0, 180)));
+        }
     }
 }

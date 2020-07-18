@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2027b27016540c1a76e84af962aac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objName: Goal1
+  objName: Goal2
   score: 1
-  speed: 10
-  distance: 0.2
+  speed: 12
+  distance: 0.15

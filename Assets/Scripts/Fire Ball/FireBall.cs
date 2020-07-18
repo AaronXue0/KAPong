@@ -50,6 +50,10 @@ namespace Role.BallSpace
         Vector2 movement = Vector2.zero;
         bool isDoingAbility = false;
 
+        public void Disregister()
+        {
+            Destroy(this.gameObject);
+        }
         public Vector2 GetMovement
         {
             get
@@ -123,7 +127,7 @@ namespace Role.BallSpace
             if (other.collider.tag == "Flag")
             {
                 gm.Goal(this.gameObject, other.collider.gameObject); 
-                //animator.SetTrigger("explode");
+                animator.SetTrigger("explode");
                 return;
             }
             ClearState();
