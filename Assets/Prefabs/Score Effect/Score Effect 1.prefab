@@ -98,4 +98,4 @@ MonoBehaviour:
   objName: Goal2
   score: 1
   speed: 12
-  distance: 0.15
+  distance: 0.05

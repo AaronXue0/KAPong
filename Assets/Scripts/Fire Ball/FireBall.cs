@@ -88,6 +88,7 @@ namespace Role.BallSpace
         }
         public void Move(Vector2 velocity)
         {
+            if(rb == null) return;
             Vector2 m = (velocity + velocity) * speed;
             TowardToMovingDirection();
             if (speed > maxSpeed) speed = maxSpeed;
@@ -126,6 +127,7 @@ namespace Role.BallSpace
         {
             if (other.collider.tag == "Flag")
             {
+                Destroy(rb);
                 gm.Goal(this.gameObject, other.collider.gameObject); 
                 animator.SetTrigger("explode");
                 return;
