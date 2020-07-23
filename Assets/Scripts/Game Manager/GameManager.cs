@@ -91,6 +91,10 @@ public class GameManager : MonoBehaviour
         playerSlider.value = health1;
         fill.color = gradient.Evaluate(value);
     }
+    public Transform GetBallTransform()
+    {
+        return ball.transform;
+    }
     public Vector2 GetBallMovement()
     {
         return ball.GetMovement;
@@ -116,5 +120,6 @@ public class GameManager : MonoBehaviour
         }else if(selectScore == 1){
             Instantiate(fireball, ballSpawnPoint[1], Quaternion.Euler(new Vector3(0, 0, 180)));
         }
+        ball = FindObjectOfType<FireBall>();
     }
 }

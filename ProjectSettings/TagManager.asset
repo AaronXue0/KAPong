@@ -7,6 +7,9 @@ TagManager:
   - Player Sword
   - FireBall
   - Flag
+  - BallIgnore
+  - Enemy
+  - Enemy Sword
   layers:
   - Default
   - TransparentFX
@@ -21,8 +24,8 @@ TagManager:
   - Enemy
   - Boundary
   - Center Boundary
-  - 
-  - 
+  - BallIgnore
+  - Enemy
   - 
   - 
   - 
