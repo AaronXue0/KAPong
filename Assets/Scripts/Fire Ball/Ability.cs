@@ -21,7 +21,5 @@ namespace Role.BallSpace
         {
             color.a += value;
         }
-        
-
     }
 }

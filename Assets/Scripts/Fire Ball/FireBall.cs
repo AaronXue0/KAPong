@@ -81,7 +81,7 @@ namespace Role.BallSpace
         }
         public void Divide()
         {
-
+            
         }
         public void Spin()
         {
@@ -120,7 +120,7 @@ namespace Role.BallSpace
             {
                 if (movement != Vector2.zero && movement.magnitude >= 1f) gm.PlayerHurt();
             }
-            if (other.tag == "Player Sword") hitCount++;
+            if (other.tag == "Player Sword" || other.tag == "Enemy Sword") hitCount++;
             control.BounceHandling(ref speed, ref movement, transform, other);
             Move(movement);
         }

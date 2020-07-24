@@ -3080,14 +3080,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e520189e578a423cae82c5752d2577f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReadyToHit: 0
   speed: 12
   strength: 0
   border:
   - 7.5
   - 11
   - -5
-  - -1
+  - 0
 --- !u!61 &1814315898
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3145,7 +3144,7 @@ Animator:
   m_GameObject: {fileID: 1814315896}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0bee5cddfabdd4210aaee2c8d3d5bf7e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3fd4d7ddaa75c469890947736b237a1b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

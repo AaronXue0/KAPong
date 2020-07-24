@@ -6,7 +6,6 @@ namespace Role.Enemy
 {
     public class Enemy : MonoBehaviour
     {
-        public bool isReadyToHit = false;
         [Header("Attritubes")]
         [SerializeField]
         float speed;
@@ -24,13 +23,12 @@ namespace Role.Enemy
 
         [Header("Variables")]
         Vector2 movement = Vector2.zero;
+        float startAttackTime = 1f;
+        float attackTime = 0f;
 
         public void Move()
         {
-            if (isReadyToHit == false)
-            {
-                control.DoMove(rb, movement);
-            }
+            control.DoMove(rb, movement);
         }
         private void Awake()
         {
@@ -44,13 +42,29 @@ namespace Role.Enemy
         }
         private void Update()
         {
-            if(BallTransformHandling()) return;
-            transform.position = Vector3.MoveTowards(transform.position, predictedPosition(gm.GetBallTransform().position, transform.position, gm.GetBallMovement(), speed), speed * Time.deltaTime);
+            if (attackTime > 0) attackTime -= Time.deltaTime;
+            if (BallTransformInBorder())
+            {
+                float distance = Vector2.Distance(transform.position, gm.GetBallTransform().position);
+                if (distance < 2f + gm.GetBallMovement().magnitude)
+                {
+                    DoAttack();
+                }
+                else transform.position = Vector3.MoveTowards(transform.position, 
+                                                            new Vector3(2f, -0.5f, 0f) + predictedPosition(gm.GetBallTransform().position, transform.position, gm.GetBallMovement(), speed), 
+                                                            speed * Time.deltaTime);
+            }
         }
-        private bool BallTransformHandling()
+        private void DoAttack()
+        {
+            if (attackTime > 0) return;
+            attackTime = startAttackTime;
+            control.DoAnimator(animator, "attack");
+        }
+        private bool BallTransformInBorder()
         {
             Vector2 ballPos = gm.GetBallTransform().position;
-            if (border[0] < ballPos.y || border[1] < ballPos.x || border[2] > ballPos.y ||  border[3] > ballPos.x)
+            if (border[0] > ballPos.y && border[1] > ballPos.x && border[2] < ballPos.y && border[3] < ballPos.x)
             {
                 return true;
             }

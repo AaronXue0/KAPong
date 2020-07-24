@@ -93,10 +93,12 @@ public class GameManager : MonoBehaviour
     }
     public Transform GetBallTransform()
     {
+        if(ball == null) return null;
         return ball.transform;
     }
     public Vector2 GetBallMovement()
     {
+        if(ball == null) return Vector2.zero;
         return ball.GetMovement;
     }
     void Awake()

@@ -10,21 +10,19 @@ namespace Role.BallSpace
         {
             rb.velocity = force;
         }
-        public void DoMove(Transform transform, Vector2 force)
-        {
-            transform.position = transform.position + new Vector3(force.x, force.y, 0);
-        }
         public void BounceHandling(ref float speed, ref Vector2 movement, Transform transform, Collider2D other)
         {
             switch (other.tag)
             {
                 case "Player":
+                case "Enemy":
                     if(movement == Vector2.zero) return;
                     movement = new Vector2(movement.x > 0 ? -0.1f : 0.1f, 0);
                     break;
                 case "Player Sword":
-                    movement = transform.position - other.transform.position;
+                case "Enemy Sword":
                     float distance = movement.magnitude;
+                    movement = transform.position - other.transform.position;
                     speed = 10 / (Mathf.Abs(distance - 2) + 1);
                     break;
             }
@@ -34,6 +32,7 @@ namespace Role.BallSpace
             switch (other.collider.tag)
             {
                 case "Player":
+                case "Enmey":
                     if(movement == Vector2.zero) return;
                     movement = new Vector2(movement.x > 0 ? -0.1f : 0.1f, 0);
                     break;
