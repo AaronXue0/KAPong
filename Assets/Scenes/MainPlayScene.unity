@@ -178,7 +178,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 65711a34e251a4f30853a19b42439865, type: 3}
     m_FontSize: 64
     m_FontStyle: 1
     m_BestFit: 0
@@ -2948,7 +2948,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 65711a34e251a4f30853a19b42439865, type: 3}
     m_FontSize: 64
     m_FontStyle: 1
     m_BestFit: 0
@@ -3026,7 +3026,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 65711a34e251a4f30853a19b42439865, type: 3}
     m_FontSize: 64
     m_FontStyle: 1
     m_BestFit: 0
@@ -3063,7 +3063,7 @@ GameObject:
   - component: {fileID: 1814315897}
   m_Layer: 14
   m_Name: Enemy
-  m_TagString: Enemy
+  m_TagString: Enemy Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3100,18 +3100,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.4210658, y: -0.621768}
+  m_Offset: {x: -0.10573673, y: -0.07409096}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.5625, y: 4.75}
+    oldSize: {x: 1, y: 2.125}
     newSize: {x: 5.5625, y: 4.75}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5783968, y: 1.8910065}
+  m_Size: {x: 1.209055, y: 1.9241982}
   m_EdgeRadius: 0
 --- !u!50 &1814315899
 Rigidbody2D:
@@ -3192,7 +3192,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d2818b40411ce447f9267f644fe3edf2, type: 3}
+  m_Sprite: {fileID: 8823596386833456969, guid: a32e7713b82164afbbacdaad701c50cd,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

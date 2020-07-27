@@ -46,12 +46,8 @@ namespace Role.Enemy
             if (BallTransformInBorder())
             {
                 float distance = Vector2.Distance(transform.position, gm.GetBallTransform().position);
-                if (distance < 2f + gm.GetBallMovement().magnitude)
-                {
-                    DoAttack();
-                }
-                else transform.position = Vector3.MoveTowards(transform.position, 
-                                                            new Vector3(2f, -0.5f, 0f) + predictedPosition(gm.GetBallTransform().position, transform.position, gm.GetBallMovement(), speed), 
+                transform.position = Vector3.MoveTowards(transform.position, 
+                                                            predictedPosition(gm.GetBallTransform().position, transform.position, gm.GetBallMovement(), speed), 
                                                             speed * Time.deltaTime);
             }
         }
