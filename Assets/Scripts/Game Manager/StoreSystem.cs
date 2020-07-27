@@ -5,24 +5,23 @@ using UnityEngine.UI;
 
 public class StoreSystem : MonoBehaviour
 {
-    public RectTransform content;
+    public GameObject loading;
+    public Image[] loadingImages;
+    public Sprite[] loadingSprites;
+    public GameObject result;
+    public Text resultText;
     public Text moneyText;
     public PlayerItem item;
 
-    public void AddMoney()
-    {
-        item.money += 10;
-        ChangeMoneyView();
-    }
     public void AddMoney(int cost)
     {
-        if (item.money + cost < 0)
-        {
-            StartCoroutine(ShakeDelay(0.15f, 0.4f));
-            return;
-        }
+        bool isSuccessful = (item.money + cost < 0) ? false : true;
+        loading.SetActive(true);
+        StartCoroutine(LoadingEffect(0.3f, 0.1f, isSuccessful));
+        if (isSuccessful == false) return;
         item.money += cost;
         ChangeMoneyView();
+        // DoStore();
     }
     void Start()
     {
@@ -32,23 +31,30 @@ public class StoreSystem : MonoBehaviour
     {
         moneyText.text = "Money: " + item.money.ToString();
     }
-    IEnumerator ShakeDelay(float duration, float magnitude)
+    IEnumerator LoadingEffect(float duration, float delay, bool isSuccessful)
     {
-        Vector3 originalPos = content.localPosition;
-
+        int n = 0;
         float elapsed = 0.0f;
         while (elapsed < duration)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
-
-            content.localPosition = new Vector3(x,y, originalPos.z);
-
+            SetImage(n);
+            n = (n + 1) % loadingImages.Length;
             elapsed += Time.deltaTime;
-
-            yield return null;
+            yield return new WaitForSeconds(delay);
         }
-
-        content.localPosition = originalPos;
+        if(isSuccessful) resultText.text = "Success";
+        else resultText.text = "Fail";
+        loading.SetActive(false);
+        result.SetActive(true);
+        yield return new WaitForSeconds(1);
+        result.SetActive(false);
+    }
+    void SetImage(int n)
+    {
+        for (int i = 0; i < loadingImages.Length; i++)
+        {
+            if (i == n) loadingImages[i].sprite = loadingSprites[1];
+            else loadingImages[i].sprite = loadingSprites[0];
+        }
     }
 }
