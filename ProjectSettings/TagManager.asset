@@ -10,6 +10,7 @@ TagManager:
   - BallIgnore
   - Enemy
   - Enemy Sword
+  - Boundary
   layers:
   - Default
   - TransparentFX
