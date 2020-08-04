@@ -37,6 +37,7 @@ public class PlayerDrag : MonoBehaviour
                                                  Vector3.zero);
             if (hit)
             {
+                Debug.Log(hit.collider.gameObject.name);
                 Move(Vector3.zero);
                 isClicked = true;
                 startPos = transform.position;
@@ -58,7 +59,7 @@ public class PlayerDrag : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             lr.positionCount = 0;
-            Move(startPos - endPos);
+            if(isClicked) Move(startPos - endPos);
             isClicked = false;
         }
     }
