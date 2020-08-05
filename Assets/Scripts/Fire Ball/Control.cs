@@ -20,10 +20,12 @@ namespace Role.BallSpace
                     movement = new Vector2(movement.x > 0 ? -0.1f : 0.1f, 0);
                     break;
                 case "Player Sword":
-                case "Enemy Sword":
                     float distance = movement.magnitude;
                     movement = transform.position - other.transform.position;
                     speed = 10 / (Mathf.Abs(distance - 2) + 1);
+                    break;
+                case "Enemy Sword":
+                    movement = transform.position - other.transform.position;
                     break;
             }
         }

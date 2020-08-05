@@ -150,6 +150,7 @@ namespace Role.BallSpace
         void Start()
         {
             gm = FindObjectOfType<GameManager>();
+            maxSpeed = 8;
         }
         void AbilityHandling()
         {
