@@ -26,6 +26,9 @@ namespace Role.Enemy
         float startAttackTime = 1f;
         float attackTime = 0f;
 
+        float count = 0f;
+        float enemyBackSpot;
+
         public void Move()
         {
             control.DoMove(rb, movement);
@@ -42,8 +45,21 @@ namespace Role.Enemy
         }
         private void Update()
         {
+            
+            count += Time.deltaTime;
+            if (count > 10)
+            {
+                count = 0;
+                enemyBackSpot = Random.Range(border[0]-3, border[2]+3);
+            }
             if (attackTime > 0) attackTime -= Time.deltaTime;
-            if (BallTransformInBorder())
+            if (BallTransformInBorder()&& BallTransformBehindEnemy())
+            {
+                transform.position = Vector3.MoveTowards(transform.position,
+                                                           new Vector3(border[1] - 1, transform.position.y, 0),
+                                                            speed * 2 * Time.deltaTime);
+            }
+            else if (BallTransformInBorder()&&gm.GetBallMovement().x>=0)
             {
                 transform.position = Vector3.MoveTowards(transform.position, 
                                                             predictedPosition(gm.GetBallTransform().position, transform.position, gm.GetBallMovement(), speed), 
@@ -52,8 +68,9 @@ namespace Role.Enemy
             else
             {
                 transform.position = Vector3.MoveTowards(transform.position,
-                                                            new Vector3( border[1]-1,(border[0] + border[2]) / 2, 0),
-                                                            speed * Time.deltaTime);
+                                                           //new Vector3( border[1]-1,(border[0] + border[2]) / 2, 0),
+                                                           new Vector3(border[1] - 1, enemyBackSpot, 0), 
+                                                            speed*2 * Time.deltaTime);
             }
         }
         private void DoAttack()
@@ -66,6 +83,15 @@ namespace Role.Enemy
         {
             Vector2 ballPos = gm.GetBallTransform().position;
             if (border[0] > ballPos.y && border[1] > ballPos.x && border[2] < ballPos.y && border[3] < ballPos.x)
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool BallTransformBehindEnemy()
+        {
+            Vector2 ballPos = gm.GetBallTransform().position;
+            if (ballPos.x>transform.position.x-0.2f)
             {
                 return true;
             }
