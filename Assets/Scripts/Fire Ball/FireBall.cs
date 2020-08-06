@@ -62,6 +62,10 @@ namespace Role.BallSpace
         {
             get { return transform; }
         }
+        public bool GetSinWave
+        {
+            get { return sinWave; }
+        }
         public void SinWave()
         {
             ability.DoSinWave(ref movement, transform, waveFrequency, waveMagnitude);
@@ -121,6 +125,8 @@ namespace Role.BallSpace
                 if (movement != Vector2.zero && movement.magnitude >= 1f) gm.PlayerHurt();
             }
             if (other.tag == "Player Sword" || other.tag == "Enemy Sword") hitCount++;
+            
+            if (other.tag == "" && sinWave) Move(new Vector2(-1, Random.Range(-1,2)));
             control.BounceHandling(ref speed, ref movement, transform, other);
             Move(movement);
         }
@@ -150,7 +156,7 @@ namespace Role.BallSpace
         void Start()
         {
             gm = FindObjectOfType<GameManager>();
-            maxSpeed = 8;
+            //maxSpeed = 4;
         }
         void AbilityHandling()
         {

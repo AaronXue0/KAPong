@@ -570,7 +570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 227773779}
-  speed: 15
+  speed: 17
   strength: 0
   boundary:
     serializedVersion: 2
@@ -3095,7 +3095,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.10573673, y: -0.07409096}
+  m_Offset: {x: 0, y: -0.07409096}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3477,7 +3477,7 @@ PrefabInstance:
     - target: {fileID: 9123183628344593389, guid: 9e6ebb88fa48449ff90b00c8774d25ad,
         type: 3}
       propertyPath: maxSpeed
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9123183628344593389, guid: 9e6ebb88fa48449ff90b00c8774d25ad,
         type: 3}
@@ -3489,5 +3489,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: d5dda0fa892f54f40ad731048657caeb, type: 2}
+    - target: {fileID: 9123183628344593390, guid: 9e6ebb88fa48449ff90b00c8774d25ad,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.036362
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e6ebb88fa48449ff90b00c8774d25ad, type: 3}

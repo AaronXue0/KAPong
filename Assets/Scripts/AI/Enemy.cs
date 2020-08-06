@@ -50,7 +50,7 @@ namespace Role.Enemy
             if (count > 10)
             {
                 count = 0;
-                enemyBackSpot = Random.Range(border[0], border[2]);
+                enemyBackSpot = Random.Range(border[0]-3, border[2]+3);
             }
             if (attackTime > 0) attackTime -= Time.deltaTime;
             if (BallTransformInBorder()&& BallTransformBehindEnemy())
@@ -59,7 +59,7 @@ namespace Role.Enemy
                                                            new Vector3(border[1] - 1, transform.position.y, 0),
                                                             speed * 2 * Time.deltaTime);
             }
-            else if (BallTransformInBorder())
+            else if (BallTransformInBorder()&&gm.GetBallMovement().x>=0)
             {
                 transform.position = Vector3.MoveTowards(transform.position, 
                                                             predictedPosition(gm.GetBallTransform().position, transform.position, gm.GetBallMovement(), speed), 
@@ -91,7 +91,7 @@ namespace Role.Enemy
         private bool BallTransformBehindEnemy()
         {
             Vector2 ballPos = gm.GetBallTransform().position;
-            if (ballPos.x>transform.position.x-0.5f)
+            if (ballPos.x>transform.position.x-0.2f)
             {
                 return true;
             }

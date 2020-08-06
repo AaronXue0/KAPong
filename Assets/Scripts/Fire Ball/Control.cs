@@ -25,7 +25,12 @@ namespace Role.BallSpace
                     speed = 10 / (Mathf.Abs(distance - 2) + 1);
                     break;
                 case "Enemy Sword":
-                    movement = transform.position - other.transform.position;
+                    if (movement.x == 0)
+                    {
+                        movement = transform.position - other.transform.position;
+                    }
+                    else
+                        movement = Vector2.Reflect(movement*0.7f, new Vector2(-1,0));
                     break;
             }
         }
