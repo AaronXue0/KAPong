@@ -31,7 +31,7 @@ public class LunchScript : MonoBehaviour
     void Start()
     {
         textImage.color = color;
-        textImage.color = color;
+        textImageBackground.color = color;
         Invoke("LunchAnimation", 1f);
     }
     void Update()

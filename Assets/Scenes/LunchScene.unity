@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 1578968496}
   - component: {fileID: 1578968495}
   m_Layer: 5
-  m_Name: Text Image Background
+  m_Name: Image (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -609,11 +609,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 2e956ba47b4d040d18e0273b3e13102a,
         type: 3}
-    - target: {fileID: 3412196749617036637, guid: 6272479eec7b845d7b0fc833694cd00c,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6272479eec7b845d7b0fc833694cd00c, type: 3}
 --- !u!1001 &4145862469204570876
@@ -647,11 +642,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4145862468977553015, guid: 2ac9253f10a5c4d8e8650c3afa1cc1dc,
-        type: 3}
-      propertyPath: m_Name
-      value: Text Image
       objectReference: {fileID: 0}
     - target: {fileID: 4145862469104628117, guid: 2ac9253f10a5c4d8e8650c3afa1cc1dc,
         type: 3}
@@ -778,16 +768,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 215.26959
-      objectReference: {fileID: 0}
-    - target: {fileID: 8094271838663156764, guid: 2ac9253f10a5c4d8e8650c3afa1cc1dc,
-        type: 3}
-      propertyPath: m_Name
-      value: Planet Image
-      objectReference: {fileID: 0}
-    - target: {fileID: 8747404764444763544, guid: 2ac9253f10a5c4d8e8650c3afa1cc1dc,
-        type: 3}
-      propertyPath: m_Name
-      value: Planet Ring Image
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ac9253f10a5c4d8e8650c3afa1cc1dc, type: 3}
