@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class LunchScript : MonoBehaviour
 {
     [SerializeField]
-    Image textImage;
+    Image textImage = null;
     [SerializeField]
-    Image textImageBackground;
+    Image textImageBackground = null;
     [SerializeField]
     Color color;
     [SerializeField]
-    Transform targetPos;
+    Transform targetPos = null;
     Material material;
     bool isDissolving = false;
     bool isDissolvingText = false;

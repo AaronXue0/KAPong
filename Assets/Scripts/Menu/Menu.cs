@@ -19,8 +19,6 @@ namespace Menuspace
         public AnimationCurve acX, acY;
         Camera cam;
         Spaceship spaceshipControl;
-        bool isTransfering;
-
 
         /// <summary>
         /// GameManager Scene Callback
@@ -106,7 +104,6 @@ namespace Menuspace
         }
         void TransferEffect()
         {
-            isTransfering = true;
             transferSpriteMask.enabled = true;
             StartCoroutine(DissolvingCoroutine());
         }
@@ -125,13 +122,12 @@ namespace Menuspace
                 cam.transform.position = Vector3.Lerp(aPos, bPos, timer);
                 yield return null;
             }
-            isTransfering = false;
         }
         IEnumerator DissolvingCoroutine()
         {
             Material material = transferSpriteMask.material;
             float fade = 1;
-            while (isTransfering)
+            while (fade > 0)
             {
                 fade -= Time.deltaTime;
                 material.SetFloat("_Fade", fade);
