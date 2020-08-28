@@ -52,11 +52,11 @@ public class LunchScript : MonoBehaviour
         {
             if(transform.localScale.x > 0) transform.localScale -= new Vector3(Time.deltaTime*0.5f,Time.deltaTime*0.5f,Time.deltaTime);
             color.a += Time.deltaTime * 0.5f;
-            if (color.a >= 1.5f)
+            if (color.a >= 1f)
             {
-                color.a = 255;
+                color.a = 1;
                 isDissolvingText = false;
-                SceneManager.LoadScene(1);
+                //SceneManager.LoadScene(1);
                 scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.MenuScene, LoadSceneMode.Single));
             }
             fade -= Time.deltaTime * 0.5f;
