@@ -7,10 +7,11 @@ namespace Menuspace
 {
     public class Menu : MonoBehaviour
     {
-        public Image transitionMask;
+        public Image transitionPanelMask;
+        public SpriteRenderer transferSpriteMask;
         public Transform spaceship;
         public Transform[] galaxyPos;
-        public float maskingSpeed;
+        public byte maskingSpeed;
         public float transferSpeed;
         public float cameraZoomSpeed;
         public float spaceshipSpeed;
@@ -18,6 +19,7 @@ namespace Menuspace
         public AnimationCurve acX, acY;
         Camera cam;
         Spaceship spaceshipControl;
+        bool isTransfering;
 
 
         /// <summary>
@@ -33,25 +35,25 @@ namespace Menuspace
         /// </summary>
         void SceneTransition(Transform target)
         {
-            StartCoroutine(CameraZoom(cam.fieldOfView, 0));
-            CameraTransfer(cam.transform.position, target.position, cameraZoomSpeed);
-            MoveObjectToPlace(spaceship, target.position, spaceshipSpeed);
             CameraMask();
+            CameraTransfer(cam.transform.position, target.position, cameraZoomSpeed);
+            StartCoroutine(CameraZoom(cam.fieldOfView, 0));
+            MoveObjectToPlace(spaceship, target.position, spaceshipSpeed);
             Invoke("SpaceshipDissolve", 0f);
         }
         void CameraMask()
         {
-            transitionMask.enabled = true;
+            transitionPanelMask.enabled = true;
             StartCoroutine(CameraMasking());
         }
         IEnumerator CameraMasking()
         {
-            byte fade = 0;
-            while(fade < 100)
+            byte timer = 175;
+            transitionPanelMask.GetComponent<Image>().color = new Color32(0, 0, 0, 175);
+            while (timer < 255)
             {
-                fade += 1;
-                Debug.Log(new Color32(255, 255, 255, fade));
-                transitionMask.GetComponent<Image>().color = new Color32(255, 255, 255, fade);
+                timer += maskingSpeed;
+                transitionPanelMask.GetComponent<Image>().color = new Color32(0, 0, 0, timer);
                 yield return null;
             }
         }
@@ -97,9 +99,16 @@ namespace Menuspace
         }
         void CameraTransfer(int start, int end, float speed)
         {
+            Invoke("TransferEffect", 0.01f);
             StartCoroutine(CameraTransferCoroutine(new Vector3(galaxyPos[start].position.x, galaxyPos[start].position.y, -10),
                                                      new Vector3(galaxyPos[end].position.x, galaxyPos[end].position.y, -10),
                                                      speed));
+        }
+        void TransferEffect()
+        {
+            isTransfering = true;
+            transferSpriteMask.enabled = true;
+            StartCoroutine(DissolvingCoroutine());
         }
         void CameraTransfer(Vector3 aPos, Vector3 bPos, float speed)
         {
@@ -116,6 +125,19 @@ namespace Menuspace
                 cam.transform.position = Vector3.Lerp(aPos, bPos, timer);
                 yield return null;
             }
+            isTransfering = false;
+        }
+        IEnumerator DissolvingCoroutine()
+        {
+            Material material = transferSpriteMask.material;
+            float fade = 1;
+            while (isTransfering)
+            {
+                fade -= Time.deltaTime;
+                material.SetFloat("_Fade", fade);
+                yield return null;
+            }
+            transferSpriteMask.enabled = false;
         }
         private void Start()
         {
