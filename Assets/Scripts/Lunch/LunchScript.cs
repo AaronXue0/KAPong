@@ -17,7 +17,7 @@ public class LunchScript : MonoBehaviour
     Material material;
     bool isDissolving = false;
     bool isDissolvingText = false;
-    float fade = 0f;
+    float fade;
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
     public void LunchAnimation()
@@ -31,7 +31,7 @@ public class LunchScript : MonoBehaviour
     void Start()
     {
         textImage.color = color;
-        textImageBackground.color = color;
+        textImage.color = color;
         Invoke("LunchAnimation", 1f);
     }
     void Update()
@@ -66,7 +66,7 @@ public class LunchScript : MonoBehaviour
             }
             material.SetFloat("_Fade", fade);
             textImage.color = color;
-            textImageBackground.color = color;
+            textImage.color = color;
         }
     }
 }

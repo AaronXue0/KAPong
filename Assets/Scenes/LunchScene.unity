@@ -609,6 +609,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 2e956ba47b4d040d18e0273b3e13102a,
         type: 3}
+    - target: {fileID: 3412196749617036637, guid: 6272479eec7b845d7b0fc833694cd00c,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6272479eec7b845d7b0fc833694cd00c, type: 3}
 --- !u!1001 &4145862469204570876
