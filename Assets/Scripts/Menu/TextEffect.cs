@@ -18,11 +18,6 @@ namespace Menuspace
             color.a = 1;
         }
 
-        void Flashing()
-        {
-            //StartCoroutine(FlashingCoroutine());
-        }
-
         // Update is called once per frame
         void Update()
         {

@@ -650,10 +650,6 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
-    Build: 1
-    Collab: 1
-    ErrorHub: 0
-    Hub: 0
     UNet: 1
   luminIcon:
     m_Name: 
@@ -667,10 +663,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: b12630b2-7d88-43f8-8b11-d83a7be143f9
+  cloudProjectId: 
   framebufferDepthMemorylessMode: 0
-  projectName: KAPong
-  organizationId: unity_bsgtefom6pgqvg
+  projectName: 
+  organizationId: 
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
