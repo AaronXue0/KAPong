@@ -60,16 +60,18 @@ public class GameManager : MonoBehaviour
         switch (choosen)
         {
             case 0:
-                ball.sinWave = true;
+                //ball.sinWave = true;
+                ball.separate = true;
                 break;
             case 1:
-                ball.transparency = true;
+                //ball.transparency = true;
+                ball.spin = true;
                 break;
             case 2:
                 ball.sinWave = true;
                 break;
             case 3:
-                ball.sinWave = true;
+                ball.transparency = true;
                 break;
             default:
                 Debug.Log(choosen);

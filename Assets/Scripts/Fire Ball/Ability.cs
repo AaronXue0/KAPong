@@ -21,5 +21,14 @@ namespace Role.BallSpace
         {
             color.a += value;
         }
+        public void DoSeparate(ref Vector2 movement, Transform transform,float angle)
+        {
+            
+            movement = transform.right + transform.up * angle;
+        }
+        public void DoSpin(ref Vector2 movement, Transform transform,float angle)
+        {
+            movement = transform.right + transform.up * angle;
+        }
     }
 }

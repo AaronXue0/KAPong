@@ -17,7 +17,7 @@ namespace Role.BallSpace
                 case "Player":
                 case "Enemy":
                     if(movement == Vector2.zero) return;
-                    movement = new Vector2(movement.x > 0 ? -0.1f : 0.1f, 0);
+                    movement = new Vector2(0.2f, 0);
                     break;
                 case "Player Sword":
                     float distance = movement.magnitude;

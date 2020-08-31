@@ -27,8 +27,9 @@ namespace Role.Enemy
         float attackTime = 0f;
 
         float count = 0f;
-        float enemyBackSpot;
-
+        float enemyHorizontalSpot;
+        float enemyVerticalSpot;
+        bool enemyback = false;
         public void Move()
         {
             control.DoMove(rb, movement);
@@ -47,19 +48,21 @@ namespace Role.Enemy
         {
             
             count += Time.deltaTime;
-            if (count > 10)
+            if (count > 0.7f /*|| (gameObject.transform.position.x == enemyVerticalSpot && gameObject.transform.position.y == enemyHorizontalSpot)*/)
             {
                 count = 0;
-                enemyBackSpot = Random.Range(border[0]-3, border[2]+3);
+                enemyHorizontalSpot = Random.Range(border[0]-3, border[2]+3);
+                enemyVerticalSpot = Random.Range(border[1] -2, border[3] +2);
             }
             if (attackTime > 0) attackTime -= Time.deltaTime;
-            if (BallTransformInBorder()&& BallTransformBehindEnemy())
+            if (BallTransformInBorder()&& BallTransformBehindEnemy() /*&& 
+                (transform.position.y> gm.GetBallTransform().position.y+0.03f&& 
+                transform.position.y < gm.GetBallTransform().position.y - 0.03f|| 
+                gm.GetBallTransform().position.x> transform.position.x)*/)
             {
-                transform.position = Vector3.MoveTowards(transform.position,
-                                                           new Vector3(border[1] - 1, transform.position.y, 0),
-                                                            speed * 2 * Time.deltaTime);
+                enemyback = true;
             }
-            else if (BallTransformInBorder()&&gm.GetBallMovement().x>=0)
+            else if (BallTransformInBorder()&&gm.GetBallMovement().x>=-0.05 && enemyback == false)
             {
                 transform.position = Vector3.MoveTowards(transform.position, 
                                                             predictedPosition(gm.GetBallTransform().position, transform.position, gm.GetBallMovement(), speed), 
@@ -69,8 +72,19 @@ namespace Role.Enemy
             {
                 transform.position = Vector3.MoveTowards(transform.position,
                                                            //new Vector3( border[1]-1,(border[0] + border[2]) / 2, 0),
-                                                           new Vector3(border[1] - 1, enemyBackSpot, 0), 
-                                                            speed*2 * Time.deltaTime);
+                                                           new Vector3(enemyVerticalSpot, enemyHorizontalSpot, 0), 
+                                                            speed *0.5f* Time.deltaTime);
+            }
+            if (enemyback)
+            {
+                transform.position = Vector3.MoveTowards(transform.position,
+                                           new Vector3(border[1] - 1, transform.position.y, 0),
+                                            speed * 2 * Time.deltaTime);
+               
+                if (gm.GetBallTransform().position.x <transform.position.x - 1f)
+                {
+                    enemyback = false;
+                }
             }
         }
         private void DoAttack()
@@ -91,7 +105,7 @@ namespace Role.Enemy
         private bool BallTransformBehindEnemy()
         {
             Vector2 ballPos = gm.GetBallTransform().position;
-            if (ballPos.x>transform.position.x-0.2f)
+            if (ballPos.x>transform.position.x+0.01f)
             {
                 return true;
             }

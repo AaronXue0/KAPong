@@ -3474,25 +3474,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fire Ball
       objectReference: {fileID: 0}
-    - target: {fileID: 9123183628344593389, guid: 9e6ebb88fa48449ff90b00c8774d25ad,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9123183628344593389, guid: 9e6ebb88fa48449ff90b00c8774d25ad,
-        type: 3}
-      propertyPath: speed
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 9123183628344593390, guid: 9e6ebb88fa48449ff90b00c8774d25ad,
         type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: d5dda0fa892f54f40ad731048657caeb, type: 2}
-    - target: {fileID: 9123183628344593390, guid: 9e6ebb88fa48449ff90b00c8774d25ad,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.036362
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e6ebb88fa48449ff90b00c8774d25ad, type: 3}

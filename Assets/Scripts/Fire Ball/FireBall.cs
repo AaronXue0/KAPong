@@ -24,6 +24,10 @@ namespace Role.BallSpace
         [SerializeField]
         public bool sinWave;
         [SerializeField]
+        public bool separate;
+        [SerializeField]
+        public bool spin;
+        [SerializeField]
         float waveMagnitude = 0.5f;
         [SerializeField]
         float waveFrequency = 20f;
@@ -42,6 +46,7 @@ namespace Role.BallSpace
         GameManager gm;
         Control control = new Control();
         Ability ability = new Ability();
+        SeparateBall separateBall;
         [Header("Components")]
         Rigidbody2D rb;
         Animator animator;
@@ -49,6 +54,12 @@ namespace Role.BallSpace
         [Header("Variables")]
         Vector2 movement = Vector2.zero;
         bool isDoingAbility = false;
+        [SerializeField]
+        GameObject separateball;
+        [SerializeField]
+        float HowMuchSpinTime;
+        float countSpinTime;
+
 
         public void Disregister()
         {
@@ -66,10 +77,35 @@ namespace Role.BallSpace
         {
             get { return sinWave; }
         }
+        public bool GetSeparate
+        {
+            get { return separate; }
+        }
+        public bool GetSpin
+        {
+            get { return spin; }
+        }
         public void SinWave()
         {
             ability.DoSinWave(ref movement, transform, waveFrequency, waveMagnitude);
             Move(movement);
+        }
+       
+        public void Separate()
+        {
+            float randomAngle;
+            randomAngle = Random.Range(-1f, 1f);
+            ability.DoSeparate(ref movement, transform, randomAngle);
+            GameObject go = (GameObject)Instantiate(separateball, new Vector2(transform.position.x, transform.position.y), transform.rotation);
+            //Instantiate(separateball, new Vector2(transform.position.x+1, transform.position.y+1), Quaternion.Euler(new Vector3(0, 0, 0)));
+            separateBall = go.GetComponent<SeparateBall>();
+            initSeparateBall(randomAngle);
+            Move(movement);
+            separate = false;
+        }
+        public void initSeparateBall(float angle)
+        {
+            separateBall.initBall(movement,angle);
         }
         public void Transparency()
         {
@@ -89,7 +125,15 @@ namespace Role.BallSpace
         }
         public void Spin()
         {
-
+            float spinAngle;
+            spinAngle = 0.5f;
+            ability.DoSpin(ref movement, transform, spinAngle);
+            countSpinTime += Time.deltaTime;
+            if (countSpinTime > HowMuchSpinTime)
+            {
+                countSpinTime = 0;
+                spin = false;
+            }
         }
         public void Move(Vector2 velocity)
         {
@@ -107,14 +151,19 @@ namespace Role.BallSpace
         public void ClearState()
         {
             sinWave = false;
+            separate = false;
+            spin = false;
         }
         void Update()
         {
             if (transparency) Transparency();
             AbilityHandling();
+            //Debug.Log(movement);
         }
         void FixedUpdate()
         {
+            if (separate) Separate();
+            if (spin) Spin();
             if (sinWave) SinWave();
             else if (movement != Vector2.zero) Move(movement);
         }

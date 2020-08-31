@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9123183628344593387
+--- !u!1 &5614489563610389418
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9123183628344593385}
-  - component: {fileID: 9123183628344593386}
-  - component: {fileID: 9123183628344593391}
-  - component: {fileID: 9123183628344593384}
-  - component: {fileID: 9123183628344593390}
-  - component: {fileID: 9123183628344593389}
+  - component: {fileID: 5614489563610389416}
+  - component: {fileID: 5614489563610389419}
+  - component: {fileID: 5614489563610389422}
+  - component: {fileID: 5614489563610389417}
+  - component: {fileID: 5614489563610389423}
+  - component: {fileID: 3388696823640913835}
   m_Layer: 0
-  m_Name: Fire Ball
+  m_Name: Separate Ball
   m_TagString: FireBall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9123183628344593385
+--- !u!4 &5614489563610389416
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9123183628344593387}
+  m_GameObject: {fileID: 5614489563610389418}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.477234, y: 0.01905536, z: 0}
+  m_LocalPosition: {x: -2.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &9123183628344593386
+--- !u!212 &5614489563610389419
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9123183628344593387}
+  m_GameObject: {fileID: 5614489563610389418}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -85,14 +85,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &9123183628344593391
+--- !u!95 &5614489563610389422
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9123183628344593387}
+  m_GameObject: {fileID: 5614489563610389418}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3d48f15a8a6df44d1861e726734bcb4f, type: 2}
@@ -104,14 +104,14 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!50 &9123183628344593384
+--- !u!50 &5614489563610389417
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9123183628344593387}
+  m_GameObject: {fileID: 5614489563610389418}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -125,52 +125,36 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &9123183628344593390
+--- !u!58 &5614489563610389423
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9123183628344593387}
+  m_GameObject: {fileID: 5614489563610389418}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.036362, y: 0.06363368}
   serializedVersion: 2
   m_Radius: 0.30909884
---- !u!114 &9123183628344593389
+--- !u!114 &3388696823640913835
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9123183628344593387}
+  m_GameObject: {fileID: 5614489563610389418}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 835a0015741e54107985244478dd7b35, type: 3}
+  m_Script: {fileID: 11500000, guid: bdf53405d1c6f4a40a16c45916389cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 4
+  rb: {fileID: 5614489563610389417}
   speed: 3
-  hitCount: 0
-  bounceCount: 0
-  hitCountTriggerAbilityTimes: 5
-  bounceCountTriggerAbilityTimes: 50
-  sinWave: 0
-  separate: 0
-  spin: 0
-  waveMagnitude: 0.5
-  waveFrequency: 20
-  transparency: 0
-  increaseValue: 1
-  decreaseValue: 1
-  isDecreasing: 1
-  color:
-    serializedVersion: 2
-    rgba: 4294967295
-  separateball: {fileID: 5614489563610389418, guid: 11d6b6ac761b51246abad515203ef1fb,
+  fireball: {fileID: 9123183628344593387, guid: 9e6ebb88fa48449ff90b00c8774d25ad,
     type: 3}
-  HowMuchSpinTime: 2
