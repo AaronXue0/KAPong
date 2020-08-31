@@ -3,29 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Scene Enterance")]
+    public float camFOVDuration;
+    public float camMoveDuration;
+    public Image maskPannel;
+    public float maskFadeDuration;
+    [Header("Pause Menu Effect")]
+    public float fadeDuration;
+    public float flyDuration;
+    //Old System
     [Header("Puase Effect")]
+    public Transform exitPos;
     public GameObject pauseCanvas;
     public GameObject[] pauseButtons;
     public GameObject musicButton;
-    public float delayFadeTime;
-    public float buttonFlySpeed;
-    public float buttonFadeInSpeed;
-
-    [Header("Scene Transition")]
-    public Transform exitPos;
-    public Image transitionPanelMask;
-    public float cameraTransferSpeed;
-    public float cameraZoomSpeed;
-    public byte maskingSpeed;
-    public byte unmaskingSpeed;
+    public float delayOrderTime;
 
     [Header("Game Control")]
     public GameObject gameMenuButton;
+    public float dropDuration;
 
-    int selectedScene = 2;
     Camera cam;
     bool isMuted = false;
 
@@ -34,19 +35,46 @@ public class GameManager : MonoBehaviour
     public void GameResume() { pauseCanvas.SetActive(false); }
     public void GameMenu(int id) { SceneEffectHandler(id); }
     public void GamePause() { DoPause(); }
+    public void LoadScene(int id) { SceneManager.LoadScene(id); }
+
+    public Color whiteT
+    {
+        get
+        {
+            Color color = Color.white;
+            color.a = 0;
+            return color;
+        }
+    }
+
     void Start()
     {
         cam = Camera.main;
-        EnterGameScene();
+        Invoke("EnterGameScene", 0.3f);
     }
     void GameStart()
     {
+        maskPannel.enabled = false;
+        LoadPauseButton();
+    }
+    void LoadPauseButton()
+    {
+        Image image = gameMenuButton.GetComponent<Image>();
+        Color color = whiteT;
+        image.color = color;
+        image.DOFade(1, 1);
+        Vector3 posB = gameMenuButton.transform.localPosition;
+        gameMenuButton.transform.localPosition += new Vector3(0, 100, 0);
         gameMenuButton.SetActive(true);
+        gameMenuButton.transform.DOLocalMove(posB, dropDuration);
+        gameMenuButton.transform.DOShakeRotation(dropDuration * 2, new Vector3(0, 0, 20), 5, 180, false);
     }
     void EnterGameScene()
     {
         cam.transform.position = new Vector3(exitPos.position.x, exitPos.position.y, -10);
-        StartCoroutine(CameraUnmasking());
+        cam.transform.DOMove(new Vector3(0, 0, -10), camMoveDuration).OnComplete(() => GameStart());
+        cam.DOFieldOfView(60, camFOVDuration);
+        maskPannel.DOFade(0f, maskFadeDuration);
     }
     void DoMute()
     {
@@ -66,57 +94,35 @@ public class GameManager : MonoBehaviour
     }
     void SceneEffectHandler(int id)
     {
-        selectedScene = id;
-        transitionPanelMask.enabled = true;
-        pauseCanvas.SetActive(false);
-        StartCoroutine(CameraMasking());
-        StartCoroutine(CameraTransferCoroutine(cam.transform.position, new Vector3(exitPos.position.x, exitPos.position.y, -10), cameraTransferSpeed));
-        StartCoroutine(CameraZoom(60, 0));
+        maskPannel.enabled = true;
+        cam.DOFieldOfView(0, camFOVDuration);
+        StartCoroutine(CameraTransfer(cam.transform.position, new Vector3(exitPos.position.x, exitPos.position.y, -10), 1f));
+        maskPannel.DOFade(1f, maskFadeDuration).OnComplete(() => LoadScene(id));
     }
     void DoPause()
     {
         pauseCanvas.SetActive(true);
-        PauseButtonsEffect(0, 1);
-    }
-    void PauseButtonsEffect(int start, int end)
-    {
         for (int i = 0; i < pauseButtons.Length; i++)
         {
-            StartCoroutine(ButtonFlyIn(i));
-            StartCoroutine(ButtonFadeIn(i, start, end));
+            TransparencyImage(pauseButtons[i].GetComponent<Image>());
+            StartCoroutine(PauseEffectCoroutine(i));
         }
     }
-    IEnumerator ButtonFlyIn(int n)
+    void TransparencyImage(Image image)
     {
-        Vector3 posB = pauseButtons[n].transform.localPosition;
-        pauseButtons[n].transform.localPosition -= new Vector3(300, 0, 0);
-        Vector3 posA = pauseButtons[n].transform.localPosition;
-        float timer = 0;
-        yield return new WaitForSeconds(n * delayFadeTime);
-        while (pauseButtons[n].transform.localPosition != posB)
-        {
-            timer += Time.deltaTime * buttonFlySpeed;
-            pauseButtons[n].transform.localPosition = Vector2.Lerp(posA, posB, timer);
-            yield return null;
-        }
-    }
-    IEnumerator ButtonFadeIn(int n, int start, int end)
-    {
-        Image image = pauseButtons[n].GetComponent<Image>();
-        Color color = Color.white;
-        color.a = start;
+        Color color = whiteT;
         image.color = color;
-        float timer = 0;
-        yield return new WaitForSeconds(n * delayFadeTime);
-        while (color.a != end)
-        {
-            timer += Time.deltaTime * buttonFadeInSpeed;
-            color.a = Mathf.Lerp(start, end, timer);
-            image.color = color;
-            yield return null;
-        }
     }
-    IEnumerator CameraTransferCoroutine(Vector3 aPos, Vector3 bPos, float speed)
+    IEnumerator PauseEffectCoroutine(int n)
+    {
+        yield return new WaitForSeconds(n * delayOrderTime);
+        Image image = pauseButtons[n].GetComponent<Image>();
+        Vector3 to = pauseButtons[n].transform.localPosition;
+        pauseButtons[n].transform.localPosition -= new Vector3(300, 0, 0);
+        pauseButtons[n].transform.DOLocalMove(to, flyDuration);
+        image.DOFade(1, fadeDuration);
+    }
+    IEnumerator CameraTransfer(Vector3 aPos, Vector3 bPos, float speed)
     {
         float timer = 0;
         while (cam.transform.position != bPos)
@@ -125,42 +131,5 @@ public class GameManager : MonoBehaviour
             cam.transform.position = Vector3.Lerp(aPos, bPos, timer);
             yield return null;
         }
-    }
-    IEnumerator CameraZoom(float aField, float bField)
-    {
-        float timer = 0;
-        while (cam.fieldOfView != bField)
-        {
-            timer += cameraZoomSpeed * Time.deltaTime;
-            cam.fieldOfView = Mathf.Lerp(aField, bField, timer);
-            yield return null;
-        }
-        if (bField >= 60) GameStart();
-    }
-    IEnumerator CameraMasking()
-    {
-        byte timer = 175;
-        transitionPanelMask.GetComponent<Image>().color = new Color32(0, 0, 0, 175);
-        while (timer < 255)
-        {
-            timer += maskingSpeed;
-            transitionPanelMask.GetComponent<Image>().color = new Color32(0, 0, 0, timer);
-            yield return null;
-        }
-        SceneManager.LoadScene(selectedScene);
-    }
-    IEnumerator CameraUnmasking()
-    {
-        byte timer = 255;
-        transitionPanelMask.GetComponent<Image>().color = new Color32(0, 0, 0, timer);
-        while (timer > 175)
-        {
-            timer -= unmaskingSpeed;
-            transitionPanelMask.GetComponent<Image>().color = new Color32(0, 0, 0, timer);
-            yield return null;
-        }
-        transitionPanelMask.enabled = false;
-        StartCoroutine(CameraZoom(0f, 60f));
-        StartCoroutine(CameraTransferCoroutine(cam.transform.position, new Vector3(0, 1, -10), cameraTransferSpeed));
     }
 }

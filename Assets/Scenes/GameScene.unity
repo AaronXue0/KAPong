@@ -1263,6 +1263,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7866319428026151694, guid: ceb1d1b9d999343dc9bc8e85de4b9c30,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7866319428026151792, guid: ceb1d1b9d999343dc9bc8e85de4b9c30,
         type: 3}
       propertyPath: m_Enabled
@@ -1477,22 +1482,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b70c88897054e3280be0eee21d473e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camFOVDuration: 1.5
+  camMoveDuration: 2
+  maskPannel: {fileID: 1332560854}
+  maskFadeDuration: 1.5
+  fadeDuration: 0.2
+  flyDuration: 0.2
+  exitPos: {fileID: 8741319}
   pauseCanvas: {fileID: 328684413}
   pauseButtons:
   - {fileID: 593474836}
   - {fileID: 31786501}
   - {fileID: 485776541}
   musicButton: {fileID: 321573048}
-  delayFadeTime: 0.15
-  buttonFlySpeed: 10
-  buttonFadeInSpeed: 1
-  exitPos: {fileID: 8741319}
-  transitionPanelMask: {fileID: 1332560854}
-  cameraTransferSpeed: 1
-  cameraZoomSpeed: 1
-  maskingSpeed: 1
-  unmaskingSpeed: 1
+  delayOrderTime: 0.2
   gameMenuButton: {fileID: 525263982}
+  dropDuration: 0.8
 --- !u!4 &1379799018
 Transform:
   m_ObjectHideFlags: 0
@@ -1500,7 +1505,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379799016}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
