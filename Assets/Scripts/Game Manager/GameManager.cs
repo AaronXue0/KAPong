@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [Header("Game Control")]
     public GameObject gameMenuButton;
     public float dropDuration;
+    public Text counterText;
 
     Camera cam;
     bool isMuted = false;
@@ -52,10 +53,14 @@ public class GameManager : MonoBehaviour
         cam = Camera.main;
         Invoke("EnterGameScene", 0.3f);
     }
-    void GameStart()
+    void GameViewStart()
     {
         maskPannel.enabled = false;
         LoadPauseButton();
+    }
+    void GameControllerStart()
+    {
+
     }
     void LoadPauseButton()
     {
@@ -66,15 +71,33 @@ public class GameManager : MonoBehaviour
         Vector3 posB = gameMenuButton.transform.localPosition;
         gameMenuButton.transform.localPosition += new Vector3(0, 100, 0);
         gameMenuButton.SetActive(true);
-        gameMenuButton.transform.DOLocalMove(posB, dropDuration);
+        gameMenuButton.transform.DOLocalMove(posB, dropDuration).OnComplete(() => StartCoroutine(CountDownStart())); ;
         gameMenuButton.transform.DOShakeRotation(dropDuration * 2, new Vector3(0, 0, 20), 5, 180, false);
     }
     void EnterGameScene()
     {
         cam.transform.position = new Vector3(exitPos.position.x, exitPos.position.y, -10);
-        cam.transform.DOMove(new Vector3(0, 0, -10), camMoveDuration).OnComplete(() => GameStart());
+        cam.transform.DOMove(new Vector3(0, 0, -10), camMoveDuration).OnComplete(() => GameViewStart());
         cam.DOFieldOfView(60, camFOVDuration);
         maskPannel.DOFade(0f, maskFadeDuration);
+    }
+    IEnumerator CountDownStart()
+    {
+        Vector3 posB = counterText.gameObject.transform.localPosition;
+        counterText.enabled = true;
+        int timer = 3;
+        counterText.gameObject.transform.localPosition += new Vector3(0, 100, 0);
+        counterText.DOFade(1, 1);
+        counterText.gameObject.transform.DOLocalMove(posB, 1f);
+        while (timer >= 0)
+        {
+            yield return new WaitForSeconds(1);
+            counterText.text = timer.ToString();
+            counterText.gameObject.transform.DOShakeRotation(1f, new Vector3(0, 0, 45f), 1);
+            timer--;
+        }
+        counterText.enabled = false;
+        GameControllerStart();
     }
     void DoMute()
     {
