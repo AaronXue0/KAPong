@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Menuspace
 {
-    public class Spaceship : MonoBehaviour
+    public class DissolveEffect : MonoBehaviour
     {
         Material material;
 

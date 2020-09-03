@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 namespace Menuspace
 {
@@ -20,7 +21,7 @@ namespace Menuspace
         public AnimationCurve acX, acY;
 
         Camera cam;
-        Spaceship spaceshipControl;
+        DissolveEffect spaceshipControl;
 
         /// <summary>
         /// GameManager Scene Callback
@@ -133,7 +134,13 @@ namespace Menuspace
         private void Start()
         {
             cam = Camera.main;
-            spaceshipControl = spaceship.GetComponent<Spaceship>();
+            spaceshipControl = spaceship.GetComponent<DissolveEffect>();
+            transitionPanelMask.enabled = true;
+            Invoke("StartFade", 0.5f);
+        }
+        void StartFade()
+        {
+            transitionPanelMask.DOFade(0, 1).OnComplete(() => transitionPanelMask.enabled = false);
         }
     }
 

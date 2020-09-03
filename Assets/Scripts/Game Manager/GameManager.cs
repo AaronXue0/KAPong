@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using Role.Playerspace;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
     public void GamePause() { DoPause(); }
     public void LoadScene(int id) { SceneManager.LoadScene(id); }
 
+    Player player;
+
     public Color whiteT
     {
         get
@@ -51,6 +54,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+        player = FindObjectOfType<Player>();
         Invoke("EnterGameScene", 0.3f);
     }
     void GameViewStart()
@@ -60,7 +64,7 @@ public class GameManager : MonoBehaviour
     }
     void GameControllerStart()
     {
-
+        player.AbleToMove();
     }
     void LoadPauseButton()
     {
@@ -71,7 +75,7 @@ public class GameManager : MonoBehaviour
         Vector3 posB = gameMenuButton.transform.localPosition;
         gameMenuButton.transform.localPosition += new Vector3(0, 100, 0);
         gameMenuButton.SetActive(true);
-        gameMenuButton.transform.DOLocalMove(posB, dropDuration).OnComplete(() => StartCoroutine(CountDownStart())); ;
+        gameMenuButton.transform.DOLocalMove(posB, dropDuration).OnComplete(() => StartCoroutine(CountDownStart()));
         gameMenuButton.transform.DOShakeRotation(dropDuration * 2, new Vector3(0, 0, 20), 5, 180, false);
     }
     void EnterGameScene()
@@ -83,17 +87,18 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator CountDownStart()
     {
-        Vector3 posB = counterText.gameObject.transform.localPosition;
         counterText.enabled = true;
         int timer = 3;
-        counterText.gameObject.transform.localPosition += new Vector3(0, 100, 0);
-        counterText.DOFade(1, 1);
-        counterText.gameObject.transform.DOLocalMove(posB, 1f);
         while (timer >= 0)
         {
+            Color color = whiteT;
+            counterText.color = color;
             yield return new WaitForSeconds(1);
+            Vector3 posB = counterText.gameObject.transform.localPosition;
             counterText.text = timer.ToString();
-            counterText.gameObject.transform.DOShakeRotation(1f, new Vector3(0, 0, 45f), 1);
+            counterText.gameObject.transform.localPosition += new Vector3(0, 100, 0);
+            counterText.DOFade(1, 1);
+            counterText.gameObject.transform.DOLocalMove(posB, 1f);
             timer--;
         }
         counterText.enabled = false;
