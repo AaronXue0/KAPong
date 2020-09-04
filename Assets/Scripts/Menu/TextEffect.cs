@@ -10,15 +10,11 @@ namespace Menuspace
         SpriteRenderer spriteRenderer;
         Color color = Color.white;
         bool isTransparency;
-
-        // Start is called before the first frame update
         void Start()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             color.a = 1;
         }
-
-        // Update is called once per frame
         void Update()
         {
             if (isTransparency)

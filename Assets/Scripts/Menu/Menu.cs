@@ -13,14 +13,17 @@ namespace Menuspace
         public Image transitionPanelMask;
         public Transform spaceship;
         public Transform[] galaxyPos;
+        public Transform cast;
         public byte maskingSpeed;
         public float transferSpeed;
         public float cameraZoomSpeed;
         public float spaceshipSpeed;
         public float spaceshipDissolveSpeed;
+        public float castSceneMoveDuration;
         public AnimationCurve acX, acY;
 
         Camera cam;
+        AudioSource audioSource;
         DissolveEffect spaceshipControl;
 
         /// <summary>
@@ -30,10 +33,18 @@ namespace Menuspace
         public void LastPage() { CameraTransfer(1, 0, transferSpeed); }
         public void SinglePlay(Transform target) { SceneTransition(target); }
 
+        // Menu2
+        public void AboutUs() { CreditCast(); }
+
 
         /// <summary>
         /// Feature Function
         /// </summary>
+        void CreditCast()
+        {
+            particle.SetActive(true);
+            cam.transform.DOMove(cast.position, castSceneMoveDuration).OnComplete(() => particle.SetActive(false));
+        }
         void SceneTransition(Transform target)
         {
             CameraMask();
@@ -134,13 +145,16 @@ namespace Menuspace
         private void Start()
         {
             cam = Camera.main;
+            audioSource = GetComponent<AudioSource>();
             spaceshipControl = spaceship.GetComponent<DissolveEffect>();
             transitionPanelMask.enabled = true;
             Invoke("StartFade", 0.5f);
         }
         void StartFade()
         {
-            transitionPanelMask.DOFade(0, 1).OnComplete(() => transitionPanelMask.enabled = false);
+            audioSource.Play();
+            audioSource.DOFade(0.1f, 10f);
+            transitionPanelMask.DOFade(0, 5).OnComplete(() => transitionPanelMask.enabled = false);
         }
     }
 
