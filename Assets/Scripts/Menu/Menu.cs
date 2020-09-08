@@ -13,6 +13,8 @@ namespace Menuspace
         public Image transitionPanelMask;
         public Transform spaceship;
         public Transform[] galaxyPos;
+        public GameObject castObj;
+        public GameObject castReturn;
         public Transform cast;
         public byte maskingSpeed;
         public float transferSpeed;
@@ -35,6 +37,7 @@ namespace Menuspace
 
         // Menu2
         public void AboutUs() { CreditCast(); }
+        public void BackToMenu() { HideCast(); }
 
 
         /// <summary>
@@ -42,8 +45,28 @@ namespace Menuspace
         /// </summary>
         void CreditCast()
         {
-            particle.SetActive(true);
-            cam.transform.DOMove(cast.position, castSceneMoveDuration).OnComplete(() => particle.SetActive(false));
+            Vector3 pos = new Vector3(80.8f, -32.7f, -27.3f);
+            castObj.transform.DOMove(pos, castSceneMoveDuration).OnComplete(() => CastEffect());
+        }
+        void CastEffect()
+        {
+            Vector3 pos = castReturn.transform.position;
+            castReturn.transform.position += new Vector3(0, 10, 0);
+            Image image = castReturn.GetComponent<Image>();
+            castReturn.transform.DOMove(pos, 1);
+            image.DOFade(1, 1).OnComplete(() => castReturn.GetComponent<Button>().interactable = true);
+        }
+        void HideCast()
+        {
+            Vector3 pos = castReturn.transform.position;
+            Image image = castReturn.GetComponent<Image>();
+            castReturn.transform.DOMove(pos + new Vector3(0, 10, 0), 1).OnComplete(() => castReturn.transform.position = pos);;
+            image.DOFade(0, 1).OnComplete(() => image.DOFade(0, 0));
+            castReturn.GetComponent<Button>().interactable = false;
+            Vector3 posY = castObj.transform.position + new Vector3(0, -10, -10);
+            castObj.transform.DOMove(posY, castSceneMoveDuration).OnComplete(() =>
+                castObj.transform.DOMove(cast.position, castSceneMoveDuration / 2)
+            );
         }
         void SceneTransition(Transform target)
         {
@@ -122,9 +145,6 @@ namespace Menuspace
                                                      new Vector3(galaxyPos[end].position.x, galaxyPos[end].position.y, -10),
                                                      speed));
         }
-        void TransferEffect()
-        {
-        }
         void CameraTransfer(Vector3 aPos, Vector3 bPos, float speed)
         {
             StartCoroutine(CameraTransferCoroutine(new Vector3(aPos.x, aPos.y, -10),
@@ -148,12 +168,12 @@ namespace Menuspace
             audioSource = GetComponent<AudioSource>();
             spaceshipControl = spaceship.GetComponent<DissolveEffect>();
             transitionPanelMask.enabled = true;
-            Invoke("StartFade", 0.5f);
+            Invoke("StartFade", 0.1f);
         }
         void StartFade()
         {
             audioSource.Play();
-            audioSource.DOFade(0.1f, 10f);
+            audioSource.DOFade(0.1f, 0.1f);
             transitionPanelMask.DOFade(0, 5).OnComplete(() => transitionPanelMask.enabled = false);
         }
     }
