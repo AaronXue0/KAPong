@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public float delayOrderTime;
 
     [Header("Game Control")]
+    public GameObject playerControlCanvas;
     public GameObject gameMenuButton;
     public float dropDuration;
     public Text counterText;
@@ -50,10 +51,20 @@ public class GameManager : MonoBehaviour
             return color;
         }
     }
+    public Color blackT
+    {
+        get
+        {
+            Color color = Color.black;
+            color.a = 0;
+            return color;
+        }
+    }
 
     void Start()
     {
         cam = Camera.main;
+        cam.fieldOfView = 0;
         player = FindObjectOfType<Player>();
         Invoke("EnterGameScene", 0.3f);
     }
@@ -69,7 +80,7 @@ public class GameManager : MonoBehaviour
     void LoadPauseButton()
     {
         Image image = gameMenuButton.GetComponent<Image>();
-        Color color = whiteT;
+        Color color = new Color32(105, 127, 166, 0);
         image.color = color;
         image.DOFade(1, 1);
         Vector3 posB = gameMenuButton.transform.localPosition;
@@ -77,6 +88,7 @@ public class GameManager : MonoBehaviour
         gameMenuButton.SetActive(true);
         gameMenuButton.transform.DOLocalMove(posB, dropDuration).OnComplete(() => StartCoroutine(CountDownStart()));
         gameMenuButton.transform.DOShakeRotation(dropDuration * 2, new Vector3(0, 0, 20), 5, 180, false);
+        playerControlCanvas.SetActive(true);
     }
     void EnterGameScene()
     {
@@ -91,7 +103,7 @@ public class GameManager : MonoBehaviour
         int timer = 3;
         while (timer >= 0)
         {
-            Color color = whiteT;
+            Color color = blackT;
             counterText.color = color;
             yield return new WaitForSeconds(1);
             Vector3 posB = counterText.gameObject.transform.localPosition;
@@ -112,12 +124,14 @@ public class GameManager : MonoBehaviour
             isMuted = false;
             Color color = Color.white;
             image.color = color;
+            // Music off api.
         }
         else
         {
             isMuted = true;
             Color color = Color.black;
             image.color = color;
+            // Music on api.
         }
     }
     void SceneEffectHandler(int id)
