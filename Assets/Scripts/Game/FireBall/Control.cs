@@ -4,14 +4,37 @@ using UnityEngine;
 
 namespace Role.BallSpace
 {
-
-    public class Control : MonoBehaviour
+    public class Control
     {
-        FireBall ball;
-
-        void Start()
+        public void BounceHandling(ref float speed, ref Vector2 movement, Transform transform, Collider2D other)
         {
-            ball = GetComponent<FireBall>();
+            switch (other.tag)
+            {
+                case "Player":
+                    if (movement == Vector2.zero) return;
+                    movement = new Vector2(0.2f, 0);
+                    break;
+                case "Player Sword":
+                    float distance = movement.magnitude;
+                    movement = transform.position - other.transform.position;
+                    speed = 10 / (Mathf.Abs(distance - 2) + 1);
+                    break;
+            }
+        }
+        public void BounceHandling(ref float speed, ref Vector2 movement, Transform transform, Collision2D other)
+        {
+            switch (other.collider.tag)
+            {
+                case "Player":
+                    if (movement == Vector2.zero) return;
+                    movement = new Vector2(movement.x > 0 ? -0.1f: 0.1f, 0);
+                    break;
+                default:
+                    Vector2 inDirection = movement;
+                    Vector2 inNormal = other.contacts[0].normal;
+                    movement = Vector2.Reflect(inDirection, inNormal);
+                    break;
+            }
         }
     }
 }

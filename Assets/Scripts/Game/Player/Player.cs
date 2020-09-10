@@ -18,6 +18,7 @@ namespace Role.Playerspace
         public float moveDuration = 10;
 
         Control control = new Control();
+        Animator aniamtor;
         Vector2 movement = Vector2.zero;
 
         public void AbleToMove()
@@ -26,6 +27,7 @@ namespace Role.Playerspace
         }
         public void OnMovement(InputAction.CallbackContext context)
         {
+            aniamtor.SetFloat("movement", Mathf.Abs(context.ReadValue<Vector2>().x) + Mathf.Abs(context.ReadValue<Vector2>().y));
             switch (context.phase)
             {
                 case InputActionPhase.Started:
@@ -39,14 +41,7 @@ namespace Role.Playerspace
         }
         public void OnAttack(InputAction.CallbackContext context)
         {
-            switch (context.phase)
-            {
-                case InputActionPhase.Started:
-                case InputActionPhase.Performed:
-                    break;
-                case InputActionPhase.Canceled:
-                    break;
-            }
+            aniamtor.SetTrigger("attack");
         }
         private void Update()
         {
@@ -64,6 +59,10 @@ namespace Role.Playerspace
                 if (Physics2D.OverlapCircle(posX, radius, whatIsBorder)) movement -= new Vector2(movement.x, 0);
                 if (Physics2D.OverlapCircle(posY, radius, whatIsBorder)) movement -= new Vector2(0, movement.y);
             }
+        }
+        void Awake()
+        {
+            aniamtor = GetComponent<Animator>();
         }
     }
 
