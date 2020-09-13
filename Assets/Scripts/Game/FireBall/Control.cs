@@ -11,13 +11,12 @@ namespace Role.BallSpace
             switch (other.tag)
             {
                 case "Player":
-                    if (movement == Vector2.zero) return;
+                    if (Mathf.Abs(movement.x) <= 0.2f) return;
                     movement = new Vector2(0.2f, 0);
                     break;
                 case "Player Sword":
-                    float distance = movement.magnitude;
                     movement = transform.position - other.transform.position;
-                    speed = 10 / (Mathf.Abs(distance - 2) + 1);
+                    speed = movement.magnitude;
                     break;
             }
         }
@@ -25,10 +24,6 @@ namespace Role.BallSpace
         {
             switch (other.collider.tag)
             {
-                case "Player":
-                    if (movement == Vector2.zero) return;
-                    movement = new Vector2(movement.x > 0 ? -0.1f: 0.1f, 0);
-                    break;
                 default:
                     Vector2 inDirection = movement;
                     Vector2 inNormal = other.contacts[0].normal;

@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 3574384960064764176}
   - component: {fileID: 3574384960064764178}
   - component: {fileID: 3574384960064764177}
+  - component: {fileID: 4290630818769930751}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -256,9 +257,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a279deeb084054162b9817a391758def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkPos: {fileID: 627748247096270713}
-  radius: 0.1
+  moveDuration: 0.3
+  hurtDuration: 1
+--- !u!114 &4290630818769930751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3574384960064764189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e6f85495e354ab9acd8944b895b229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkPos: {fileID: 0}
+  radius: 0
   whatIsBorder:
     serializedVersion: 2
-    m_Bits: 512
-  moveDuration: 0.3
+    m_Bits: 0

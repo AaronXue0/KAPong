@@ -856,6 +856,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6077710503874762533, guid: f02193b01debf422688d9d191701f24f,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: a861445fb907444a594054b092dc1859,
+        type: 3}
     - target: {fileID: 6077710504394500733, guid: f02193b01debf422688d9d191701f24f,
         type: 3}
       propertyPath: m_Camera
@@ -926,6 +932,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6077710505283843317, guid: f02193b01debf422688d9d191701f24f,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: a861445fb907444a594054b092dc1859,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f02193b01debf422688d9d191701f24f, type: 3}
 --- !u!1001 &6625660801676327159

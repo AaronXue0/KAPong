@@ -9,18 +9,27 @@ namespace Role.Playerspace
     public class Player : MonoBehaviour
     {
         [SerializeField]
-        public Transform checkPos;
-        [SerializeField]
-        public float radius;
-        [SerializeField]
-        public LayerMask whatIsBorder;
-        [SerializeField]
         public float moveDuration = 10;
-
-        Control control = new Control();
+        [SerializeField]
+        int life = 3;
+        GameManager gm;
+        Control control;
         Animator aniamtor;
         Vector2 movement = Vector2.zero;
 
+        public void Hurt()
+        {
+            if (control.IsHurt) return;
+            life--;
+            if (life <= 0) Dead();
+            else aniamtor.SetTrigger("hurt");
+            control.HurtHandling();
+        }
+        void Dead()
+        {
+            gm.GameOver();
+            //aniamtor.SetTrigger("dead");
+        }
         public void AbleToMove()
         {
             GetComponent<PlayerInput>().enabled = true;
@@ -45,24 +54,21 @@ namespace Role.Playerspace
         }
         private void Update()
         {
-            BorderHandling();
+            control.BorderHandling(ref movement);
+        }
+        private void FixedUpdate()
+        {
             transform.DOLocalMove(new Vector2(movement.x + transform.position.x, movement.y + transform.position.y),
                                               moveDuration);
         }
-        void BorderHandling()
-        {
-            Vector2 pos = new Vector2(checkPos.position.x, checkPos.position.y) + movement;
-            if (Physics2D.OverlapCircle(pos, radius, whatIsBorder))
-            {
-                Vector2 posX = new Vector2(movement.x + checkPos.position.x, 0);
-                Vector2 posY = new Vector2(0, movement.y + checkPos.position.y);
-                if (Physics2D.OverlapCircle(posX, radius, whatIsBorder)) movement -= new Vector2(movement.x, 0);
-                if (Physics2D.OverlapCircle(posY, radius, whatIsBorder)) movement -= new Vector2(0, movement.y);
-            }
-        }
         void Awake()
         {
+            control = GetComponentInChildren<Control>();
             aniamtor = GetComponent<Animator>();
+        }
+        void Start()
+        {
+            gm = FindObjectOfType<GameManager>();
         }
     }
 

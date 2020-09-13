@@ -6,52 +6,21 @@ namespace Role.BallSpace
 {
     public class Ability : MonoBehaviour
     {
-        [Header("Abilities: Sin Wave")]
+        [Header("Abilities: Sine Wave")]
         [SerializeField]
-        public bool sinWave = false;
-        public bool SinWave { get { return sinWave; } }
+        float waveFrequency = 10f;
         [SerializeField]
-        public bool separate = false;
-        public bool Separate { get { return separate; } }
-        [SerializeField]
-        public bool spin = false;
-        public bool Spin { get { return spin; } }
-        [SerializeField]
-        float waveMagnitude = 0.5f;
-        public float WaveMagnitude { get { return waveMagnitude; } }
-        [SerializeField]
-        float waveFrequency = 20f;
-        public float WaveFrequency { get { return waveFrequency; } }
+        float waveMagnitude = 1f;
 
-        [Header("Abilities: Transparency")]
-        [SerializeField]
-        public bool transparency = false;
-        public bool Transparency { get { return transparency; } }
-        [SerializeField]
-        byte increaseValue = 5;
-        public byte IncreaseValue { get { return increaseValue; } }
-        [SerializeField]
-        byte decreaseValue = 5;
-        public byte DecreaseValue { get { return decreaseValue; } }
-        [SerializeField]
-        bool isDecreasing = true;
-        public bool IsDecreasing { get { return isDecreasing; } }
-        [SerializeField]
-        Color32 color = Color.white;
-        public Color32 BallColor { get { return color; } }
-
-        [Header("Abilities: Spin")]
-        [SerializeField]
-        GameObject separateball;
-        [SerializeField]
-        float HowMuchSpinTime;
-        float countSpinTime;
-        
-        FireBall ball;
-
-        void Start()
+        public Vector2 DoSineWave()
         {
-            ball = GetComponent<FireBall>();
+            Vector3 pos = transform.right + transform.up * Mathf.Sin(Time.time * waveFrequency) * waveMagnitude;
+            return pos;
+        }
+        public IEnumerator DoEarse(float duration, System.Action callback)
+        {
+            yield return new WaitForSeconds(duration);
+            callback();
         }
     }
 }
