@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using GameSystem;
 
 namespace Role.Playerspace
 {
@@ -30,9 +31,14 @@ namespace Role.Playerspace
             gm.GameOver();
             //aniamtor.SetTrigger("dead");
         }
-        public void AbleToMove()
+        public void AbleToMove(bool state)
         {
-            GetComponent<PlayerInput>().enabled = true;
+            GetComponent<PlayerInput>().enabled = state;
+            if (state == false)
+            {
+                Collider2D collider = GetComponent<Collider2D>();
+                collider.enabled = false;
+            }
         }
         public void OnMovement(InputAction.CallbackContext context)
         {

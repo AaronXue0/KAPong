@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameSystem;
 
 namespace Role.BallSpace
 {
-    public enum AbilityState { None, SineWave, Transparency, Spin, Separate };
+    public enum AbilityState { None = 0, SineWave = 1, Transparency = 2, Spin = 3, Separate = 4 };
     [RequireComponent(typeof(Rigidbody2D))]
     public class FireBall : MonoBehaviour
     {
@@ -36,16 +37,28 @@ namespace Role.BallSpace
         GameManager gm;
         Rigidbody2D rb;
 
-        public void SineWave()
+        public void AbilityTrigger(int n)
         {
             isDoingAbility = true;
-            state = AbilityState.SineWave;
-            StartCoroutine(ability.DoEarse(sineDuration, callbackEarse));
+            state = (AbilityState)n;
+            switch (state)
+            {
+                case AbilityState.SineWave:
+                    StartCoroutine(ability.DoEarse(sineDuration, callbackEarse));
+                    break;
+                case AbilityState.Transparency:
+                    break;
+                case AbilityState.Spin:
+                    break;
+                case AbilityState.Separate:
+                    break;
+            }
         }
         public void callbackEarse()
         {
-            isDoingAbility = false;
             state = AbilityState.None;
+            Move(movement.normalized * constantSpeed);
+            isDoingAbility = false;
         }
         public void Move(Vector2 velocity)
         {
@@ -66,6 +79,10 @@ namespace Role.BallSpace
         }
         private void OnCollisionEnter2D(Collision2D other)
         {
+            if (other.collider.tag == "Flag")
+            {
+                if (other.collider.name == "Right") gm.Goal(hitSpeed, (int)state);
+            }
             bounceCount++;
             control.BounceHandling(ref hitSpeed, ref movement, transform, other);
         }
@@ -87,6 +104,7 @@ namespace Role.BallSpace
                     Move(movement + ability.DoSineWave());
                     break;
                 case AbilityState.Transparency:
+                    if (movement != Vector2.zero) Move(movement);
                     break;
                 case AbilityState.Spin:
                     break;
@@ -99,7 +117,6 @@ namespace Role.BallSpace
         }
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.K)) SineWave();
             if (movement != Vector2.zero) TowardToMovingDirection();
             if (constantSpeed >= maxSpeed) constantSpeed = maxSpeed;
         }

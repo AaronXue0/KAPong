@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Player Sword
+  - Flag
   layers:
   - Default
   - TransparentFX
