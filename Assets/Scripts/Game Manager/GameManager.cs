@@ -12,12 +12,20 @@ namespace GameSystem
         [SerializeField]
         private int score = 0;
         GameEvent gameEvent;
+        AudioDJ DJ;
         Player player;
         FireBall ball;
+
+        bool isFirstGoal = false;
 
         public void Goal(float speed, int state)
         {
             gameEvent.GoalHandling(ref score, speed, state);
+            if (isFirstGoal == false)
+            {
+                isFirstGoal = true;
+                DJ.SetcionA();
+            }
         }
         public void ShuffleAbility()
         {
@@ -29,7 +37,7 @@ namespace GameSystem
         }
         public void GameOver()
         {
-            gameEvent.GameOver();
+            gameEvent.GameOver(score);
             player.AbleToMove(false);
         }
         public Vector2 GetBallSpeed()
@@ -48,6 +56,7 @@ namespace GameSystem
         private void Awake()
         {
             gameEvent = GetComponent<GameEvent>();
+            DJ = GetComponent<AudioDJ>();
         }
         private void Start()
         {

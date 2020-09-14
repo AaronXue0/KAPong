@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -383,6 +383,7 @@ GameObject:
   - component: {fileID: 1949566352}
   - component: {fileID: 1949566354}
   - component: {fileID: 1949566353}
+  - component: {fileID: 1949566356}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -486,6 +487,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1949566356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949566351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fd3df7fc05a4bba8bea86f2843e059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetAspect: {x: 16, y: 9}
 --- !u!4 &2059924395 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5199144294976095411, guid: c45bd1dcd3bd84fedb801e43e22bccff,
@@ -744,6 +758,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 215.26959
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399005837726267461, guid: 2ac9253f10a5c4d8e8650c3afa1cc1dc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 138.3338
+      objectReference: {fileID: 0}
+    - target: {fileID: 8489645904421576678, guid: 2ac9253f10a5c4d8e8650c3afa1cc1dc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 179.65118
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ac9253f10a5c4d8e8650c3afa1cc1dc, type: 3}

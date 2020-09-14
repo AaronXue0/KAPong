@@ -37,17 +37,18 @@ namespace GameSystem
                 return color;
             }
         }
-        public void GameOver()
+        public void GameOver(int score)
         {
             _gDisplay.SetActive(true);
             Image[] images = _gDisplay.GetComponentsInChildren<Image>();
+            GameObject.Find("/Evaluate Canvas/Score Text").GetComponent<Text>().text = score.ToString();
             foreach (Image image in images)
             {
                 image.color = whiteT;
             }
-            ShowGameOverDisplay(images);
+            ShowGameOverDisplay(score, images);
         }
-        public void ShowGameOverDisplay(Image[] images)
+        public void ShowGameOverDisplay(int score, Image[] images)
         {
             foreach (Image image in images)
             {

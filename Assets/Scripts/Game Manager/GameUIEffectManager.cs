@@ -37,7 +37,7 @@ namespace GameSystem
 
         public void GameMusic() { DoMute(); }
         public void GameRestart(int id) { SceneEffectHandler(id); }
-        public void GameResume() { pauseCanvas.SetActive(false); }
+        public void GameResume() { Time.timeScale = 1; pauseCanvas.SetActive(false); }
         public void GameMenu(int id) { SceneEffectHandler(id); }
         public void GamePause() { DoPause(); }
         public void LoadScene(int id) { SceneManager.LoadScene(id); }
@@ -81,18 +81,26 @@ namespace GameSystem
         }
         void LoadGameUI()
         {
-            Image[] objects = gameUI.GetComponentsInChildren<Image>();
+            Image[] images = gameUI.GetComponentsInChildren<Image>();
             gameUI.SetActive(true);
-            foreach (Image image in objects)
+            foreach (Image image in images)
             {
                 image.color = whiteT;
-                image.DOFade(1, 1);
-                Vector3 posB = image.transform.localPosition;
-                image.transform.localPosition += new Vector3(0, 100, 0);
-                image.transform.DOLocalMove(posB, dropDuration).OnComplete(() => StartCoroutine(CountDownStart()));
-                image.transform.DOShakeRotation(dropDuration * 2, new Vector3(0, 0, 20), 5, 180, false);
             }
+            LoadingQueue(images, 0);
             playerControlCanvas.SetActive(true);
+        }
+        void LoadingQueue(Image[] images, int i)
+        {
+            Image image = images[i];
+            image.color = whiteT;
+            image.DOFade(1, 1);
+            Vector3 posB = image.transform.localPosition;
+            image.transform.localPosition += new Vector3(0, 100, 0);
+            if (i == images.Length - 1)
+                image.transform.DOLocalMove(posB, dropDuration).OnComplete(() => StartCoroutine(CountDownStart()));
+            else
+                image.transform.DOLocalMove(posB, dropDuration).OnComplete(() => LoadingQueue(images, ++i));
         }
         void EnterGameScene()
         {
@@ -106,12 +114,15 @@ namespace GameSystem
             counterText.enabled = true;
             int timer = 3;
             Vector3 posB = counterText.gameObject.transform.localPosition;
-            while (timer >= 0)
+            while (timer >= -1)
             {
                 yield return new WaitForSeconds(1);
                 Color color = blackT;
                 counterText.color = color;
-                counterText.text = timer.ToString();
+                if (timer > 0)
+                    counterText.text = timer.ToString();
+                else
+                    counterText.text = "Go";
                 counterText.gameObject.transform.localPosition += new Vector3(0, 100, 0);
                 counterText.DOFade(1, 1);
                 counterText.gameObject.transform.DOLocalMove(posB, 0.8f);
@@ -140,7 +151,8 @@ namespace GameSystem
         }
         void SceneEffectHandler(int id)
         {
-            gameUI.SetActive(false);
+            Time.timeScale = 1;
+            if (GameObject.Find("Evaluate Canvas")) GameObject.Find("Evaluate Canvas").SetActive(false);
             maskPannel.enabled = true;
             cam.DOFieldOfView(0, camFOVDuration);
             StartCoroutine(CameraTransfer(cam.transform.position, new Vector3(exitPos.position.x, exitPos.position.y, -10), 1f));
@@ -167,7 +179,8 @@ namespace GameSystem
             Vector3 to = pauseButtons[n].transform.localPosition;
             pauseButtons[n].transform.localPosition -= new Vector3(300, 0, 0);
             pauseButtons[n].transform.DOLocalMove(to, flyDuration);
-            image.DOFade(1, fadeDuration);
+            if (n == pauseButtons.Length - 1) image.DOFade(1, fadeDuration).OnComplete(() => Time.timeScale = 0);
+            else image.DOFade(1, fadeDuration);
         }
         IEnumerator CameraTransfer(Vector3 aPos, Vector3 bPos, float speed)
         {

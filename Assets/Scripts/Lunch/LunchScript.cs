@@ -56,8 +56,8 @@ public class LunchScript : MonoBehaviour
             {
                 color.a = 1;
                 isDissolvingText = false;
-                //SceneManager.LoadScene(1);
-                scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.MenuScene, LoadSceneMode.Single));
+                SceneManager.LoadScene(1, LoadSceneMode.Single);
+                // scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.MenuScene, LoadSceneMode.Single));
             }
             fade -= Time.deltaTime * 0.5f;
             if (fade <= 0)
