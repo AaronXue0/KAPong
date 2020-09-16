@@ -27,6 +27,10 @@ namespace GameSystem
                 DJ.SetcionA();
             }
         }
+        public void LostPoint()
+        {
+            player.Hurt();
+        }
         public void ShuffleAbility()
         {
             gameEvent.Shuffle(callbackAbilityTrigger);

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3025675058161556596}
   - component: {fileID: 3030368175976599948}
   - component: {fileID: 7106784978259220265}
+  - component: {fileID: 7652385207631978015}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -73,7 +74,7 @@ MonoBehaviour:
   musicButton: {fileID: 0}
   delayOrderTime: 3
   playerControlCanvas: {fileID: 0}
-  gameMenuButton: {fileID: 0}
+  gameUI: {fileID: 0}
   dropDuration: 0.2
   counterText: {fileID: 0}
 --- !u!114 &7106784978259220265
@@ -94,3 +95,20 @@ MonoBehaviour:
   _aContent: []
   shuffleDelay: 0.1
   maxShuffle: 7
+--- !u!114 &7652385207631978015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312260849400649638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1aed9e727f3e444e972f5e15fd3541e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: bc76760237ea545eca369e35ab2a52bb, type: 3}
+  - {fileID: 8300000, guid: 8e8524c8803ce4c53875080f1dac3446, type: 3}
+  - {fileID: 8300000, guid: eb5e7aa754a7846beaa37a5db5aedd24, type: 3}
+  - {fileID: 8300000, guid: e3bc46169214f4bc88d9ecc22c844557, type: 3}

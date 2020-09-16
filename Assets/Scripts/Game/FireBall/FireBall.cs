@@ -24,6 +24,9 @@ namespace Role.BallSpace
         [SerializeField]
         float sineDuration = 5f;
 
+        [SerializeField]
+        GameObject goalEffect = null;
+
         [Header("Variables")]
         Vector2 movement = Vector2.zero;
         public Vector2 Movement { get { return movement; } }
@@ -72,7 +75,7 @@ namespace Role.BallSpace
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == "Player" && movement.magnitude >= 0.3f) gm.PlayerHurt();
+            if (other.tag == "Player" && movement.magnitude >= 0.3f) { gm.PlayerHurt(); }
             if (other.tag == "Player Sword" || other.tag == "Enemy Sword") hitCount++;
             control.BounceHandling(ref hitSpeed, ref movement, transform, other);
             Move(movement * hitSpeed);
@@ -81,10 +84,19 @@ namespace Role.BallSpace
         {
             if (other.collider.tag == "Flag")
             {
-                if (other.collider.name == "Right") gm.Goal(hitSpeed, (int)state);
+                if (other.collider.name == "Right")
+                {
+                    Invoke("Goal", 0.5f);
+                    Instantiate(goalEffect, (Vector2)transform.position, Quaternion.identity);
+                }
+                if (other.collider.name == "Left") gm.LostPoint();
             }
             bounceCount++;
             control.BounceHandling(ref hitSpeed, ref movement, transform, other);
+        }
+        void Goal()
+        {
+            gm.Goal(hitSpeed, (int)state);
         }
         private void Awake()
         {

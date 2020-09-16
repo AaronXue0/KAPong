@@ -7,6 +7,10 @@ namespace Role.Playerspace
     public class Control : MonoBehaviour
     {
         [SerializeField]
+        public SpriteRenderer[] hearts;
+        [SerializeField]
+        public Sprite[] heartsImage;
+        [SerializeField]
         float hurtDuration = 1f;
         [SerializeField]
         public Transform checkPos;
@@ -30,10 +34,25 @@ namespace Role.Playerspace
             }
         }
 
-        public void HurtHandling()
+        public void Recovery()
+        {
+            for (int i = 0; i < hearts.Length; i++)
+            {
+                StartCoroutine(SetHeartImage(hearts[i], heartsImage[0], i * 0.3f));
+            }
+        }
+
+        public IEnumerator SetHeartImage(SpriteRenderer image, Sprite sprite, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            image.sprite = sprite;
+        }
+
+        public void HurtHandling(int n)
         {
             isHurt = true;
             Invoke("SetHurtFalse", hurtDuration);
+            if (n >= 0 && n < hearts.Length) hearts[n].sprite = heartsImage[1];
         }
 
         void SetHurtFalse()

@@ -26,7 +26,7 @@ namespace Role.Playerspace
             life--;
             if (life <= 0) Dead();
             else aniamtor.SetTrigger("hurt");
-            control.HurtHandling();
+            control.HurtHandling(life);
         }
         void Dead()
         {
@@ -35,7 +35,12 @@ namespace Role.Playerspace
         }
         public void AbleToMove(bool state)
         {
-            if (state == true) joystick = FindObjectOfType<Joystick>();
+
+            if (state == true)
+            {
+                joystick = FindObjectOfType<Joystick>();
+                control.Recovery();
+            }
             GetComponent<PlayerInput>().enabled = state;
             if (state == false)
             {
@@ -45,7 +50,6 @@ namespace Role.Playerspace
         }
         public void OnMovement(InputAction.CallbackContext context)
         {
-            aniamtor.SetFloat("movement", Mathf.Abs(context.ReadValue<Vector2>().x) + Mathf.Abs(context.ReadValue<Vector2>().y));
             switch (context.phase)
             {
                 case InputActionPhase.Started:
@@ -64,7 +68,7 @@ namespace Role.Playerspace
         private void Update()
         {
             if (joystick == null) return;
-            movement = new Vector2(joystick.Horizontal, joystick.Vertical);
+            //movement = new Vector2(joystick.Horizontal, joystick.Vertical);
             control.BorderHandling(ref movement);
             aniamtor.SetFloat("movement", Mathf.Abs(movement.x) + Mathf.Abs(movement.y));
         }
