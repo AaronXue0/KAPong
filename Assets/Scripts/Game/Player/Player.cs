@@ -86,6 +86,10 @@ namespace Role.Playerspace
         {
             gm = FindObjectOfType<GameManager>();
         }
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if(other.tag == "Thunder") Hurt();
+        }
     }
 
 }

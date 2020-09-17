@@ -2068,6 +2068,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5973778326571679000, guid: 48ecc95787d1b49bba9d5fe077ed5f86,
         type: 3}
+    - target: {fileID: 3025675058161556596, guid: 5c51f4190c96740298e11f4d18008d5c,
+        type: 3}
+      propertyPath: thunder
+      value: 
+      objectReference: {fileID: 2732861766259601382, guid: e775611755d884339ab2ad223e58a0b0,
+        type: 3}
+    - target: {fileID: 3025675058161556596, guid: 5c51f4190c96740298e11f4d18008d5c,
+        type: 3}
+      propertyPath: _tStartPos.x
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3025675058161556596, guid: 5c51f4190c96740298e11f4d18008d5c,
+        type: 3}
+      propertyPath: _tEndPos.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3025675058161556596, guid: 5c51f4190c96740298e11f4d18008d5c,
+        type: 3}
+      propertyPath: _tDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3025675058161556596, guid: 5c51f4190c96740298e11f4d18008d5c,
+        type: 3}
+      propertyPath: _tSpacing
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3030368175976599948, guid: 5c51f4190c96740298e11f4d18008d5c,
         type: 3}
       propertyPath: maskPannel

@@ -9,8 +9,17 @@ namespace GameSystem
 {
     public class GameManager : MonoBehaviour
     {
+        [Header("Lost Point")]
+        public GameObject thunder;
+        public Vector2 _tStartPos;
+        public Vector2 _tEndPos;
+        public float _tDuration;
+        public float _tSpacing;
+
+        [Header("Score")]
         [SerializeField]
         private int score = 0;
+
         GameEvent gameEvent;
         AudioDJ DJ;
         Player player;
@@ -29,8 +38,19 @@ namespace GameSystem
         }
         public void LostPoint()
         {
-            player.Hurt();
+            StartCoroutine(LostPointEffect());
         }
+        public IEnumerator LostPointEffect()
+        {
+            Vector2 pos = _tStartPos;
+            while (pos.x < _tEndPos.x)
+            {
+                yield return new WaitForSeconds(_tDuration);
+                Instantiate(thunder, pos, Quaternion.Euler (0f, 0f, 90f));
+                pos = new Vector2(pos.x + _tSpacing, pos.y);
+            }
+        }
+
         public void ShuffleAbility()
         {
             gameEvent.Shuffle(callbackAbilityTrigger);
@@ -55,7 +75,7 @@ namespace GameSystem
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.J)) ShuffleAbility();
-            if (Input.GetKeyDown(KeyCode.H)) GameOver();
+            if (Input.GetKeyDown(KeyCode.H)) LostPoint();
         }
         private void Awake()
         {
