@@ -68,7 +68,7 @@ namespace Role.Playerspace
         private void Update()
         {
             if (joystick == null) return;
-            //movement = new Vector2(joystick.Horizontal, joystick.Vertical);
+            movement = new Vector2(joystick.Horizontal, joystick.Vertical);
             control.BorderHandling(ref movement);
             aniamtor.SetFloat("movement", Mathf.Abs(movement.x) + Mathf.Abs(movement.y));
         }

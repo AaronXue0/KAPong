@@ -43,7 +43,7 @@ namespace GameSystem
         public void LoadScene(int id) { SceneManager.LoadScene(id); }
 
         Player player;
-
+        
         public Color whiteT
         {
             get

@@ -77,7 +77,7 @@ namespace Menuspace
             Invoke("SpaceshipDissolve", 0f);
             Invoke("SinglePlayerScene", 1f);
         }
-        void SinglePlayerScene() { ChangeScene(2); }
+        void SinglePlayerScene() { ChangeScene(3); }
         void ChangeScene(int n)
         {
             SceneManager.LoadScene(n);

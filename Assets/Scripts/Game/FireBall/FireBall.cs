@@ -75,7 +75,7 @@ namespace Role.BallSpace
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == "Player" && movement.magnitude >= 0.3f) { gm.PlayerHurt(); }
+            if (other.tag == "Player" && movement.magnitude >= 0.35f) { gm.PlayerHurt(); }
             if (other.tag == "Player Sword" || other.tag == "Enemy Sword") hitCount++;
             control.BounceHandling(ref hitSpeed, ref movement, transform, other);
             Move(movement * hitSpeed);
