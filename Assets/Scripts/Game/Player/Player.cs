@@ -35,11 +35,12 @@ namespace Role.Playerspace
         }
         public void AbleToMove(bool state)
         {
-
             if (state == true)
             {
                 joystick = FindObjectOfType<Joystick>();
-                control.Recovery();
+                Collider2D collider = GetComponent<Collider2D>();
+                collider.enabled = true;
+                control.Recovery(ref life);
             }
             GetComponent<PlayerInput>().enabled = state;
             if (state == false)
@@ -68,7 +69,7 @@ namespace Role.Playerspace
         private void Update()
         {
             if (joystick == null) return;
-            movement = new Vector2(joystick.Horizontal, joystick.Vertical);
+            //movement = new Vector2(joystick.Horizontal, joystick.Vertical);
             control.BorderHandling(ref movement);
             aniamtor.SetFloat("movement", Mathf.Abs(movement.x) + Mathf.Abs(movement.y));
         }

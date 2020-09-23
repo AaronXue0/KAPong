@@ -37,6 +37,9 @@ namespace GameSystem
                 return color;
             }
         }
+        public void RevivalHandling(){
+            _gDisplay.SetActive(false);
+        }
         public void GameOver(int score)
         {
             _gDisplay.SetActive(true);

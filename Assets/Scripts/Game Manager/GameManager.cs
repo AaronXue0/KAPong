@@ -27,9 +27,15 @@ namespace GameSystem
 
         bool isFirstGoal = false;
 
+        public void Revival()
+        {
+            gameEvent.RevivalHandling();
+            player.AbleToMove(true);
+        }
         public void Goal(float speed, int state)
         {
             gameEvent.GoalHandling(ref score, speed, state);
+            if (score % 10 == 0) ball.SpeedUp = 0.2f;
             if (isFirstGoal == false)
             {
                 isFirstGoal = true;
@@ -38,10 +44,10 @@ namespace GameSystem
         }
         public void LostPoint()
         {
-            int n = Random.Range(0,2);
+            int n = Random.Range(0, 2);
             Debug.Log(n);
-            if(n == 0) StartCoroutine(ModeOne());
-            if(n == 1) ModeTwo();
+            if (n == 0) StartCoroutine(ModeOne());
+            if (n == 1) ModeTwo();
         }
         public IEnumerator ModeOne()
         {
@@ -49,17 +55,17 @@ namespace GameSystem
             while (pos.x < _tEndPos.x)
             {
                 yield return new WaitForSeconds(_tDuration);
-                Instantiate(thunder, pos, Quaternion.Euler (0f, 0f, 90f));
+                Instantiate(thunder, pos, Quaternion.Euler(0f, 0f, 90f));
                 pos = new Vector2(pos.x + _tSpacing, pos.y);
             }
         }
         public void ModeTwo()
         {
 
-            Vector2 pos = _tStartPos * Random.Range(1,3);
+            Vector2 pos = _tStartPos * Random.Range(1, 3);
             while (pos.x < _tEndPos.x)
             {
-                Instantiate(thunder, pos, Quaternion.Euler (0f, 0f, 90f));
+                Instantiate(thunder, pos, Quaternion.Euler(0f, 0f, 90f));
                 pos = new Vector2(pos.x + _tSpacing * 1.5f, pos.y);
             }
         }

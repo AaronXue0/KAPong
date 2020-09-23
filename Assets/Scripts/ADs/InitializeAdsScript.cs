@@ -39,12 +39,9 @@ public class InitializeAdsScript : MonoBehaviour, IUnityAdsListener
         if (showResult == ShowResult.Finished)
         {
             // Reward the user for watching the ad to completion.
-
-            Debug.Log("Money adds");
         }
         else if (showResult == ShowResult.Skipped)
         {
-            Debug.Log("Money not change");
             // Do not reward the user for skipping the ad.
         }
         else if (showResult == ShowResult.Failed)
@@ -58,7 +55,6 @@ public class InitializeAdsScript : MonoBehaviour, IUnityAdsListener
         // If the ready Placement is rewarded, show the ad:
         if (placementId == myPlacementId)
         {
-            // Optional actions to take when the placement becomes ready(For example, enable the rewarded ads button)
         }
     }
 

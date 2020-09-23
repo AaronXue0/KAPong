@@ -12,6 +12,7 @@ namespace Role.BallSpace
         [Header("Attritubes")]
         [SerializeField]
         float maxSpeed = 0;
+        public float SpeedUp { set { maxSpeed += value; } }
         [SerializeField]
         float hitSpeed = 0;
         [SerializeField]
@@ -106,7 +107,7 @@ namespace Role.BallSpace
         private void Start()
         {
             gm = FindObjectOfType<GameManager>();
-            InvokeRepeating("SpeedUp", 0f, 0.1f);
+            InvokeRepeating("ConstantSpeedUp", 8f, 0.1f);
         }
         private void FixedUpdate()
         {
@@ -132,7 +133,7 @@ namespace Role.BallSpace
             if (movement != Vector2.zero) TowardToMovingDirection();
             if (constantSpeed >= maxSpeed) constantSpeed = maxSpeed;
         }
-        void SpeedUp()
+        void ConstantSpeedUp()
         {
             constantSpeed += Time.deltaTime;
         }

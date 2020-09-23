@@ -34,8 +34,9 @@ namespace Role.Playerspace
             }
         }
 
-        public void Recovery()
+        public void Recovery(ref int life)
         {
+            life = 3;
             for (int i = 0; i < hearts.Length; i++)
             {
                 StartCoroutine(SetHeartImage(hearts[i], heartsImage[0], i * 0.3f));
