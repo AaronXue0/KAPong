@@ -13,7 +13,7 @@ EditorBuildSettings:
     guid: 522be92dcef9a4bb0afa248963e67ca1
   - enabled: 1
     path: Assets/Scenes/MenuScene.unity
-    guid: 7490933e66be144e38d81351919936de
+    guid: 2a06f50d18d52484db1cd26a9e77d7bc
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: fe367e8de6d864646a430f871bc82fc9
