@@ -19,14 +19,17 @@ namespace GameSystem
         [Header("Score")]
         [SerializeField]
         private int score = 0;
+        private float time;
 
+        private float gametime;
         GameEvent gameEvent;
         AudioDJ DJ;
         Player player;
         FireBall ball;
-
+        [SerializeField]
+        int gameMode = 1;
         bool isFirstGoal = false;
-
+        float ballNum;
         public void Revival()
         {
             gameEvent.RevivalHandling();
@@ -36,6 +39,15 @@ namespace GameSystem
         {
             gameEvent.GoalHandling(ref score, speed, state);
             if (score % 10 == 0) ball.SpeedUp = 0.2f;
+            if (isFirstGoal == false)
+            {
+                isFirstGoal = true;
+                DJ.SetcionA();
+            }
+        }
+        public void Goal(int addscore)
+        {
+            gameEvent.GoalAdd(ref score,addscore);
             if (isFirstGoal == false)
             {
                 isFirstGoal = true;
@@ -78,6 +90,10 @@ namespace GameSystem
         {
             ball.AbilityTrigger(result + 1);
         }
+        public void Instantiate()
+        {
+            gameEvent.InstantiateBall();
+        }
         public void GameOver()
         {
             gameEvent.GameOver(score);
@@ -95,6 +111,23 @@ namespace GameSystem
         {
             if (Input.GetKeyDown(KeyCode.J)) ShuffleAbility();
             if (Input.GetKeyDown(KeyCode.H)) LostPoint();
+            if (Input.GetKeyDown(KeyCode.I)) Instantiate();
+            gametime += Time.deltaTime;
+            if(gameMode==1)
+            time += Time.deltaTime;
+            if (gametime >= 9.5)
+            {
+                if (time >= 1.0)
+                {
+                    if (gametime <= 50) ballNum = gametime/5;
+                    for (int i = 0; i < ballNum; i++)
+                    {
+                        Instantiate();
+                    }
+                    Goal(1);
+                    time = 0;
+                }
+            }
         }
         private void Awake()
         {

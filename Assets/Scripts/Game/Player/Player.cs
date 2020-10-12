@@ -56,9 +56,11 @@ namespace Role.Playerspace
                 case InputActionPhase.Started:
                 case InputActionPhase.Performed:
                     movement = context.ReadValue<Vector2>();
+                    transform.localScale = new Vector3(transform.localScale.x > 0 ? movement.x >= 0 ? 1 : -1 : movement.x <= 0 ? -1 : 1 ,1,1);
                     break;
                 case InputActionPhase.Canceled:
                     movement = context.ReadValue<Vector2>();
+                    transform.localScale = new Vector3(transform.localScale.x > 0 ? movement.x >= 0 ? 1 : -1 : movement.x <= 0 ? -1 : 1 ,1,1);
                     break;
             }
         }
@@ -69,7 +71,7 @@ namespace Role.Playerspace
         private void Update()
         {
             if (joystick == null) return;
-            movement = new Vector2(joystick.Horizontal, joystick.Vertical);
+            //movement = new Vector2(joystick.Horizontal, joystick.Vertical);
             control.BorderHandling(ref movement);
             aniamtor.SetFloat("movement", Mathf.Abs(movement.x) + Mathf.Abs(movement.y));
         }

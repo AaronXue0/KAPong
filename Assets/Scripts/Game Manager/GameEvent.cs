@@ -24,6 +24,8 @@ namespace GameSystem
         int maxShuffle = 7;
         int shuffleCounter = 0;
         int _aRandom;
+        [SerializeField]
+        public GameObject fireball;
 
         /// <summary>
         /// GameOver Effect Handling
@@ -72,6 +74,13 @@ namespace GameSystem
             score *= bonus;
             StartCoroutine(ScoreCorountine(score));
         }
+        public void GoalAdd(ref int score,int addscore)
+        {
+            //int bonus = 1;
+            score += addscore;
+            //score *= bonus;
+            StartCoroutine(ScoreCorountine(score));
+        }
         IEnumerator ScoreCorountine(int score)
         {
             int n = int.Parse(_sDisplay.text);
@@ -98,6 +107,31 @@ namespace GameSystem
             shuffleCounter--;
             if (shuffleCounter > 0) StartCoroutine(ShuffleCoroutine(Random.Range(0, _aContent.Length), callback));
             else callback(rand);
+        }
+        public void InstantiateBall()
+        {
+            Instantiate(fireball, InstantiatePlace(), new Quaternion());
+        }
+        public Vector2 InstantiatePlace()
+        {
+            Vector2 randomPlace;
+            float randomX;
+            float randomY;
+            bool useable = false;
+            randomX = Random.Range(-12.5f, 11.5f);
+            randomY = Random.Range(-6.5f, 8.5f);
+            while (useable == false)
+            {
+                if ((randomX < 11 && randomX > -11.7) && (randomY < 8 && randomY > -6))
+                {
+                    randomX = Random.Range(-12.5f, 11.5f);
+                    randomY = Random.Range(-6.5f, 8.5f);
+                }
+                else useable = true;
+            }
+
+            randomPlace = new Vector2(randomX, randomY);
+            return randomPlace;
         }
     }
 }

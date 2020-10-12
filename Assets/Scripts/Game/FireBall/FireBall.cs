@@ -11,7 +11,7 @@ namespace Role.BallSpace
     {
         [Header("Attritubes")]
         [SerializeField]
-        float maxSpeed = 0;
+        float maxSpeed = 5;
         public float SpeedUp { set { maxSpeed += value; } }
         [SerializeField]
         float hitSpeed = 0;
