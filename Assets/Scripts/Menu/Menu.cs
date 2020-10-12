@@ -14,12 +14,14 @@ namespace Menuspace
         public GameObject pausePanel;
         public GameObject spaceship;
         public PlayableAsset[] clips;
+        public PlayableAsset[] unSupportedClips;
         public PlayableAsset supportClip;
         PlayableDirector director;
 
-        public bool appFocus;
+        public bool appFocus = true;
         bool isOpeningURL;
         Vector2 scale;
+        bool supported;
 
         void OnGUI()
         {
@@ -33,28 +35,39 @@ namespace Menuspace
         {
             appFocus = focusStatus;
         }
-        public void AboutUs(GameObject btn)
+        public void SinglePlayer()
         {
-            Application.OpenURL("https://www.facebook.com/Game-Starry-109356847225732/?view_public_for=109356847225732");
+            SceneManager.LoadScene(3, LoadSceneMode.Single);
+        }
+        public void AboutUs(string url)
+        {
+            Application.OpenURL(url);
         }
         public void PlayThanksFeedback()
         {
+            if (supported == false) return;
             director.playableAsset = supportClip;
             director.Play();
         }
         public void TransitionAToB()
         {
-            director.playableAsset = clips[0];
+            if (supported) director.playableAsset = clips[0];
+            else director.playableAsset = unSupportedClips[0];
             director.Play();
         }
         public void TransitionBToA()
         {
-            director.playableAsset = clips[1];
+            if (supported) director.playableAsset = clips[1];
+            else director.playableAsset = unSupportedClips[1];
             director.Play();
         }
         private void Awake()
         {
             director = GetComponent<PlayableDirector>();
+        }
+        private void Start()
+        {
+            supported = SystemInfo.supportsComputeShaders && SystemInfo.maxComputeBufferInputsVertex != 0;
         }
         void Update()
         {
