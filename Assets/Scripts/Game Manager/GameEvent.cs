@@ -39,8 +39,10 @@ namespace GameSystem
                 return color;
             }
         }
-        public void RevivalHandling(){
+        public void RevivalHandling()
+        {
             _gDisplay.SetActive(false);
+            Time.timeScale = 1;
         }
         public void GameOver(int score)
         {
@@ -60,7 +62,9 @@ namespace GameSystem
                 image.color = whiteT;
                 image.DOFade(0.8f, 1);
             }
+            Invoke("SetTimeScaleToZero", 1.2f);
         }
+        void SetTimeScaleToZero() { Time.timeScale = 0; }
 
         /// <summary>
         /// Goal Effect Handling
@@ -74,7 +78,7 @@ namespace GameSystem
             score *= bonus;
             StartCoroutine(ScoreCorountine(score));
         }
-        public void GoalAdd(ref int score,int addscore)
+        public void GoalAdd(ref int score, int addscore)
         {
             //int bonus = 1;
             score += addscore;

@@ -15,13 +15,16 @@ namespace Menuspace
         public GameObject spaceship;
         public PlayableAsset[] clips;
         public PlayableAsset[] unSupportedClips;
+        public PlayableAsset singleClip;
         public PlayableAsset supportClip;
         PlayableDirector director;
 
         public bool appFocus = true;
+        public int selectedGameScene = 3;
         bool isOpeningURL;
         Vector2 scale;
         bool supported;
+
 
         void OnGUI()
         {
@@ -37,7 +40,13 @@ namespace Menuspace
         }
         public void SinglePlayer()
         {
-            SceneManager.LoadScene(3, LoadSceneMode.Single);
+            director.playableAsset = singleClip;
+            director.Play();
+            Invoke("ChangeScene", 3f);
+        }
+        void ChangeScene()
+        {
+            SceneManager.LoadScene(selectedGameScene, LoadSceneMode.Single);
         }
         public void AboutUs(string url)
         {
@@ -67,7 +76,7 @@ namespace Menuspace
         }
         private void Start()
         {
-            supported = SystemInfo.supportsComputeShaders && SystemInfo.maxComputeBufferInputsVertex != 0;
+            supported = SystemInfo.supportsComputeShaders && SystemInfo.maxComputeBufferInputsVertex >= 4;
         }
         void Update()
         {

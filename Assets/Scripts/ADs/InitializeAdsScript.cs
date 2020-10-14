@@ -10,7 +10,7 @@ namespace Menuspace
     public class InitializeAdsScript : MonoBehaviour, IUnityAdsListener
     {
 #if UNITY_IOS
-            private string gameId = "3796674";
+        private string gameId = "3796674";
 #elif UNITY_ANDROID
         private string gameId = "3796675";
 #endif
@@ -47,9 +47,10 @@ namespace Menuspace
             // Define conditional logic for each ad completion status:
             if (showResult == ShowResult.Finished)
             {
-                GetComponent<Menu>().PlayThanksFeedback();
-                Debug.Log("Success");
-                Invoke("HideLoader", 0f);
+                loadMessage.text = "";
+                loadMessage.DOText("X Memeory O", 1.5f);
+                Invoke("HideLoader", 3f);
+                Invoke("PlayThanksFeedback",3f);
             }
             else if (showResult == ShowResult.Skipped)
             {
@@ -62,6 +63,9 @@ namespace Menuspace
             {
                 Debug.LogWarning("The ad did not finish due to an error.");
             }
+        }
+        void PlayThanksFeedback(){
+            GetComponent<Menu>().PlayThanksFeedback();
         }
 
         public void OnUnityAdsReady(string placementId)

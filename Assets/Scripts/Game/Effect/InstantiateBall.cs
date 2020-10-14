@@ -59,7 +59,7 @@ namespace Role.InstantiateBallSpace
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == "Player" && movement.magnitude >= 0.35f) { gm.PlayerHurt(); }
+            if (other.tag == "Player" && movement.magnitude >= 0.35f) { gm.PlayerHurt(); Destroy(this.gameObject); }
             if (other.tag == "Player Sword" || other.tag == "Enemy Sword") hitCount++;
             //control.BounceHandling(ref hitSpeed, ref movement, transform, other);
             switch (other.tag)
@@ -126,7 +126,7 @@ namespace Role.InstantiateBallSpace
             float randomX = 0;
             float randomY = 0;
             if (transform.position.x <= -11.65) randomX = Random.Range(0, 5.0f);
-            else if (transform.position.x >=11) randomX = Random.Range(-5.0f, 0);
+            else if (transform.position.x >= 11) randomX = Random.Range(-5.0f, 0);
             else randomX = Random.Range(-5.0f, 5.0f);
 
             if (transform.position.y <= -5.95) randomY = Random.Range(0, 4.0f);

@@ -43,7 +43,7 @@ namespace GameSystem
         public void LoadScene(int id) { SceneManager.LoadScene(id); }
 
         Player player;
-        
+
         public Color whiteT
         {
             get
@@ -57,8 +57,7 @@ namespace GameSystem
         {
             get
             {
-                Color color = Color.black;
-                color.a = 0;
+                Color color = new Color(0.0009344984f, 0.09222087f, 0.1981132f, 1f);
                 return color;
             }
         }
@@ -88,6 +87,7 @@ namespace GameSystem
                 image.color = whiteT;
             }
             LoadingQueue(images, 0);
+            StartCoroutine(CountDownStart());
             playerControlCanvas.SetActive(true);
         }
         void LoadingQueue(Image[] images, int i)
@@ -97,10 +97,7 @@ namespace GameSystem
             image.DOFade(1, 1);
             Vector3 posB = image.transform.localPosition;
             image.transform.localPosition += new Vector3(0, 100, 0);
-            if (i == images.Length - 1)
-                image.transform.DOLocalMove(posB, dropDuration).OnComplete(() => StartCoroutine(CountDownStart()));
-            else
-                image.transform.DOLocalMove(posB, dropDuration).OnComplete(() => LoadingQueue(images, ++i));
+            image.transform.DOLocalMove(posB, dropDuration).OnComplete(() => LoadingQueue(images, ++i));
         }
         void EnterGameScene()
         {

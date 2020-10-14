@@ -21,6 +21,8 @@ namespace GameSystem
         private int score = 0;
         private float time;
 
+        bool isGameOver = false;
+
         private float gametime;
         GameEvent gameEvent;
         AudioDJ DJ;
@@ -33,6 +35,8 @@ namespace GameSystem
         public void Revival()
         {
             gameEvent.RevivalHandling();
+            player.GetComponent<Animator>().SetTrigger("revival");
+            isGameOver = false;
             player.AbleToMove(true);
         }
         public void Goal(float speed, int state)
@@ -96,6 +100,7 @@ namespace GameSystem
         }
         public void GameOver()
         {
+            isGameOver = true;
             gameEvent.GameOver(score);
             player.AbleToMove(false);
         }
@@ -112,6 +117,7 @@ namespace GameSystem
             if (Input.GetKeyDown(KeyCode.J)) ShuffleAbility();
             if (Input.GetKeyDown(KeyCode.H)) LostPoint();
             if (Input.GetKeyDown(KeyCode.I)) Instantiate();
+            if(isGameOver) return;
             gametime += Time.deltaTime;
             if(gameMode==1)
             time += Time.deltaTime;
