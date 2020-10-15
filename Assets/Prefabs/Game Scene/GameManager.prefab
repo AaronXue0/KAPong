@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5588499736963607141}
   - component: {fileID: 369310987651034304}
   - component: {fileID: 987109547748632054}
+  - component: {fileID: 5352468667170044943}
   - component: {fileID: 5655687998684150031}
   m_Layer: 0
   m_Name: GameManager
@@ -53,6 +54,7 @@ MonoBehaviour:
   _tDuration: 0.5
   _tSpacing: 3
   score: 0
+  gameMode: 1
 --- !u!114 &5588499736963607141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +107,7 @@ MonoBehaviour:
   - {fileID: 228813063816687610, guid: 9e9a3c8cc3ec846209d5dcc23b239d4d, type: 3}
   shuffleDelay: 0.1
   maxShuffle: 7
+  fireball: {fileID: 0}
 --- !u!114 &987109547748632054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +125,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8e8524c8803ce4c53875080f1dac3446, type: 3}
   - {fileID: 8300000, guid: eb5e7aa754a7846beaa37a5db5aedd24, type: 3}
   - {fileID: 8300000, guid: e3bc46169214f4bc88d9ecc22c844557, type: 3}
+--- !u!114 &5352468667170044943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7193672183487802447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18abfeb9d47ff473fac73a9c5844d39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &5655687998684150031
 AudioSource:
   m_ObjectHideFlags: 0

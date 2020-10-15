@@ -1,0 +1,8 @@
+lastUpgrade=01011
+proj.pluginVersion=0.10.11
+proj.AppId=945651551139
+proj.classDir=Assets
+proj.ConstantsClassName=GPGSIds
+and.ResourceData=%3cresources%3e%0a%3cstring+name%3d%22app_id%22%3e945651551139%3c%2fstring%3e%0a%3c%2fresources%3e
+and.ClientId=
+android.SetupDone=true

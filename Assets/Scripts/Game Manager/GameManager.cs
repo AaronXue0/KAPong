@@ -25,6 +25,7 @@ namespace GameSystem
 
         private float gametime;
         GameEvent gameEvent;
+        GameCenterController gameCenter;
         AudioDJ DJ;
         Player player;
         FireBall ball;
@@ -51,7 +52,7 @@ namespace GameSystem
         }
         public void Goal(int addscore)
         {
-            gameEvent.GoalAdd(ref score,addscore);
+            gameEvent.GoalAdd(ref score, addscore);
             if (isFirstGoal == false)
             {
                 isFirstGoal = true;
@@ -103,6 +104,7 @@ namespace GameSystem
             isGameOver = true;
             gameEvent.GameOver(score);
             player.AbleToMove(false);
+            gameCenter.ReportScoreToLeaderboard(score);
         }
         public Vector2 GetBallSpeed()
         {
@@ -117,15 +119,15 @@ namespace GameSystem
             if (Input.GetKeyDown(KeyCode.J)) ShuffleAbility();
             if (Input.GetKeyDown(KeyCode.H)) LostPoint();
             if (Input.GetKeyDown(KeyCode.I)) Instantiate();
-            if(isGameOver) return;
+            if (isGameOver) return;
             gametime += Time.deltaTime;
-            if(gameMode==1)
-            time += Time.deltaTime;
+            if (gameMode == 1)
+                time += Time.deltaTime;
             if (gametime >= 9.5)
             {
                 if (time >= 1.0)
                 {
-                    if (gametime <= 50) ballNum = gametime/5;
+                    if (gametime <= 50) ballNum = gametime / 5;
                     for (int i = 0; i < ballNum; i++)
                     {
                         Instantiate();
@@ -139,6 +141,7 @@ namespace GameSystem
         {
             gameEvent = GetComponent<GameEvent>();
             DJ = GetComponent<AudioDJ>();
+            gameCenter = GetComponent<GameCenterController>();
         }
         private void Start()
         {

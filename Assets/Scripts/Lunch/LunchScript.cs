@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LunchScript : MonoBehaviour
 {
@@ -21,7 +21,7 @@ public class LunchScript : MonoBehaviour
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
     public void LunchAnimation()
-    { 
+    {
         isDissolving = true;
     }
     void Awake()
@@ -50,7 +50,7 @@ public class LunchScript : MonoBehaviour
         }
         if (isDissolvingText)
         {
-            if(transform.localScale.x > 0) transform.localScale -= new Vector3(Time.deltaTime*0.5f,Time.deltaTime*0.5f,Time.deltaTime);
+            if (transform.localScale.x > 0) transform.localScale -= new Vector3(Time.deltaTime * 0.5f, Time.deltaTime * 0.5f, Time.deltaTime);
             color.a += Time.deltaTime * 0.5f;
             if (color.a >= 1f)
             {

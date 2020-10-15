@@ -3,9 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 using DG.Tweening;
+using Firebase;
+using Firebase.Analytics;
+using Firebase.Extensions;
+using GooglePlayGames;
 
 namespace Menuspace
 {
@@ -18,6 +23,8 @@ namespace Menuspace
         public PlayableAsset singleClip;
         public PlayableAsset supportClip;
         PlayableDirector director;
+        GameCenterController gameCenter;
+        public GameObject gameCenterBtn;
 
         public bool appFocus = true;
         public int selectedGameScene = 3;
@@ -37,6 +44,10 @@ namespace Menuspace
         void OnApplicationFocus(bool focusStatus)
         {
             appFocus = focusStatus;
+        }
+        public void ShowGameCenter()
+        {
+            gameCenter.ShowLeaderboard();
         }
         public void SinglePlayer()
         {
@@ -73,10 +84,28 @@ namespace Menuspace
         private void Awake()
         {
             director = GetComponent<PlayableDirector>();
+            gameCenter = GetComponent<GameCenterController>();
         }
         private void Start()
         {
             supported = SystemInfo.supportsComputeShaders && SystemInfo.maxComputeBufferInputsVertex >= 4;
+
+            FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
+            {
+                var app = FirebaseApp.DefaultInstance;
+            });
+
+#if UNITY_IOS
+Social.localUser.Authenticate(success =>
+            {
+                if (success)
+                {
+                    Debug.Log("Authentication successful");
+                }
+            });
+#elif UNITY_ANDROID
+            gameCenterBtn.SetActive(false);
+#endif
         }
         void Update()
         {

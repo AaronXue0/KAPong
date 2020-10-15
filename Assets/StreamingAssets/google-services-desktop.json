@@ -1,0 +1,37 @@
+{
+  "client": [
+    {
+      "services": {
+        "appinvite_service": {
+          "status": 1
+        }, 
+        "analytics_service": {
+          "status": 0
+        }
+      }, 
+      "oauth_client": [
+        {
+          "client_id": "945651551139-9hc0ou4md7jt09ote1u6e9vlb1enkqgn.apps.googleusercontent.com"
+        }
+      ], 
+      "api_key": [
+        {
+          "current_key": "AIzaSyBijjrsJYfrdfafdojLvJy7c3F8A5IZTUE"
+        }
+      ], 
+      "client_info": {
+        "mobilesdk_app_id": "1:945651551139:ios:1561646a09a31550606816", 
+        "android_client_info": {
+          "package_name": "com.ProjectStarry.KAPong"
+        }
+      }
+    }
+  ], 
+  "configuration_version": "1", 
+  "project_info": {
+    "storage_bucket": "ka-pong-87313998.appspot.com", 
+    "project_id": "ka-pong-87313998", 
+    "firebase_url": "https://ka-pong-87313998.firebaseio.com", 
+    "project_number": "945651551139"
+  }
+}
