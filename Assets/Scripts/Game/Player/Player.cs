@@ -106,6 +106,7 @@ namespace Role.Playerspace
         }
         void Start()
         {
+            AbleToMove(true);
             gm = FindObjectOfType<GameManager>();
         }
         private void OnTriggerEnter2D(Collider2D other)

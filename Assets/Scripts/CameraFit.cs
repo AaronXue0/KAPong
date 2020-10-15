@@ -39,7 +39,7 @@ public class CameraFit : MonoBehaviour
 
     private void Start()
     {
-        panelMask.DOFade(0, 3f); 
+       if(panelMask) panelMask.DOFade(0, 3f); 
     }
 
     public static void SetCamera()

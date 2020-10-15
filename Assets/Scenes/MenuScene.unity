@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -825,12 +825,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2610052886487251225}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &1301551082 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4496424670250687276, guid: 54903e798beb44c78b83b10cae9bbc5d,
-    type: 3}
-  m_PrefabInstance: {fileID: 4496424670770622093}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1352672767 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2610052887839907046, guid: 67731a209f7dc407391e24f8051bae0f,
@@ -868,12 +862,12 @@ GameObject:
   - component: {fileID: 1366188765}
   - component: {fileID: 1366188764}
   m_Layer: 5
-  m_Name: Gme Center aButton
+  m_Name: Gme Center Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1366188763
 RectTransform:
   m_ObjectHideFlags: 0
@@ -885,12 +879,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1301551082}
-  m_RootOrder: 4
+  m_Father: {fileID: 4496424670770622095}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.9, y: -4.53}
+  m_AnchoredPosition: {x: 21, y: -3.26}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1366188764
@@ -2442,6 +2436,12 @@ PrefabInstance:
 --- !u!224 &4496424670770622094 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4496424669849766895, guid: 54903e798beb44c78b83b10cae9bbc5d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4496424670770622093}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &4496424670770622095 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4496424671625938655, guid: 54903e798beb44c78b83b10cae9bbc5d,
     type: 3}
   m_PrefabInstance: {fileID: 4496424670770622093}
   m_PrefabAsset: {fileID: 0}

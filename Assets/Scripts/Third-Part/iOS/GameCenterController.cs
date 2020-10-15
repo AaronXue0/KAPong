@@ -9,8 +9,8 @@ public class GameCenterController : MonoBehaviour
 {
 #if UNITY_IOS
     private string leaderboardID = "KAPongTimeLeaderboard";
-#elif UNITY_ANDROID
-    private string leaderboardID = "CgkIo5fm6cIbEAIQAA";
+    // #elif UNITY_ANDROID
+    //     private string leaderboardID = "CgkIo5fm6cIbEAIQAA";
 #endif
 
 
@@ -28,13 +28,11 @@ public class GameCenterController : MonoBehaviour
             Social.ReportScore(score, leaderboardID, ProcessScoreReport);
         }
 #endif
-
-
     }
     public void ShowLeaderboard()
     {
 #if UNITY_IOS
-if (Social.localUser.authenticated)
+        if (Social.localUser.authenticated)
         {
             Social.localUser.Authenticate(result =>
             {
