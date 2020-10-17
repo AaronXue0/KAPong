@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: 2a06f50d18d52484db1cd26a9e77d7bc
   - enabled: 1
-    path: Assets/Scenes/GameScenceScoreMode.unity
-    guid: 4b044ed31d6474663b4874f580ca17c1
-  - enabled: 1
-    path: Assets/Scenes/GameSceneTimeMode.unity
-    guid: 6ac1fcbeca71f6646bd895b6dc0193ab
+    path: Assets/Scenes/GameScene.unity
+    guid: fe367e8de6d864646a430f871bc82fc9
   m_configObjects: {}

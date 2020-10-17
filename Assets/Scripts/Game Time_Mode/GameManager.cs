@@ -3,23 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Role.Playerspace;
 
 namespace TimeMode
 {
     public class GameManager : MonoBehaviour
     {
         UnityEvent m_scoreEvent = new UnityEvent();
-        GameEvent gameEvent;
+        GameEvent gameEvent = new GameEvent();
         GameUIEffect gameUIEffect;
 
+        public int selectedSceneID;
+
+        Player player;
         bool isGameStarted = false;
 
         public void GameMenu()
         {
-            gameUIEffect.DOMenu(ChangeScene);
+            selectedSceneID = 1;
+            gameUIEffect.DOMenu();
         }
 
-        public void ChangeScene(int id) { SceneManager.LoadScene(id); }
+        public void GameRestart()
+        {
+            selectedSceneID = 2;
+            gameUIEffect.DOMenu();
+        }
+
+        public void ChangeScene()
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene(selectedSceneID, LoadSceneMode.Single);
+        }
 
         public void GamePause()
         {
@@ -37,12 +52,18 @@ namespace TimeMode
         private void Awake()
         {
             gameUIEffect = GetComponent<GameUIEffect>();
-            gameEvent = GetComponent<GameEvent>();
         }
         void Start()
         {
             gameUIEffect.SetScoreText(gameEvent.Score);
             m_scoreEvent.AddListener(ScoreAction);
+            gameUIEffect.SceneOpening(GameStart);
+            player = FindObjectOfType<Player>();
+        }
+        void GameStart()
+        {
+            isGameStarted = true;
+            player.AbleToMove(true);
         }
         void Update()
         {

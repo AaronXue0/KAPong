@@ -27,7 +27,7 @@ namespace Menuspace
         public GameObject gameCenterBtn;
 
         public bool appFocus = true;
-        public int selectedGameScene = 3;
+        public int selectedGameScene = 2;
         bool isOpeningURL;
         Vector2 scale;
         bool supported;

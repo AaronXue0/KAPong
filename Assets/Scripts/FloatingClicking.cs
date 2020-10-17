@@ -22,7 +22,6 @@ public class FloatingClicking : MonoBehaviour
             {
                 handle.gameObject.SetActive(true);
                 handle.transform.localPosition = touch.position;
-
             }
             else handle.gameObject.SetActive(false);
         }
@@ -31,7 +30,7 @@ public class FloatingClicking : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             handle.gameObject.SetActive(true);
-            handle.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            handle.transform.localPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
         else handle.gameObject.SetActive(false);
     }
