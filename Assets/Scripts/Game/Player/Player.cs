@@ -44,7 +44,6 @@ namespace Role.Playerspace
         {
             if (state == true)
             {
-                joystick = FindObjectOfType<Joystick>();
                 Collider2D collider = GetComponent<Collider2D>();
                 collider.enabled = true;
                 control.Recovery(ref life);
