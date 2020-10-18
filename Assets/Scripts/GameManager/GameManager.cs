@@ -5,13 +5,13 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Role.Playerspace;
 
-namespace TimeMode
+namespace GameManagerSpace
 {
     public class GameManager : MonoBehaviour
     {
         UnityEvent m_scoreEvent = new UnityEvent();
-        GameEvent gameEvent = new GameEvent();
-        GameUIEffect gameUIEffect;
+        Model model = new Model();
+        View view;
 
         Player player;
         int selectedSceneID;
@@ -19,17 +19,17 @@ namespace TimeMode
 
         public void GameRevival()
         {
-            gameUIEffect.DORevival(GameStart, player);
+            view.DORevival(GameStart, player);
         }
         public void GameOver()
         {
             TimeScale(0);
-            gameUIEffect.DOGameOver();
+            view.DOGameOver();
         }
         public void GameScene(int n)
         {
             selectedSceneID = n;
-            gameUIEffect.DOChangeScene();
+            view.DOChangeScene();
         }
         public void ChangeScene()
         {
@@ -39,40 +39,40 @@ namespace TimeMode
         public void GamePause()
         {
             TimeScale(0);
-            gameUIEffect.DOPause();
+            view.DOPause();
         }
         public void GameResume()
         {
-            gameUIEffect.DOResume(TimeScale);
+            view.DOResume(TimeScale);
         }
         void TimeScale() { Time.timeScale = 1; }
         void TimeScale(int n) { Time.timeScale = n; }
         void GameStart()
         {
-            TimeScale();
+            if(gameObject.activeSelf == false) gameObject.SetActive(true);
             isGameStarted = true;
             player.AbleToMove(true);
+        }
+        void ScoreAction()
+        {
+            model.Score = Time.deltaTime;
+            view.SetScoreText(model.Score);
+        }
+        private void Awake()
+        {
+            view = GetComponent<View>();
+        }
+        void Start()
+        {
+            player = FindObjectOfType<Player>();
+            view.SetScoreText(model.Score);
+            m_scoreEvent.AddListener(ScoreAction);
+            view.SceneOpening(GameStart);
         }
         void Update()
         {
             if (isGameStarted == false) return;
             m_scoreEvent.Invoke();
-        }
-        void ScoreAction()
-        {
-            gameEvent.Score = Time.deltaTime;
-            gameUIEffect.SetScoreText(gameEvent.Score);
-        }
-        private void Awake()
-        {
-            gameUIEffect = GetComponent<GameUIEffect>();
-        }
-        void Start()
-        {
-            player = FindObjectOfType<Player>();
-            gameUIEffect.SetScoreText(gameEvent.Score);
-            m_scoreEvent.AddListener(ScoreAction);
-            gameUIEffect.SceneOpening(GameStart);
         }
     }
 }

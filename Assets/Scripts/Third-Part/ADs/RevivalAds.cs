@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
-using TimeMode;
+using GameManagerSpace;
 
 public class RevivalAds : MonoBehaviour, IUnityAdsListener
 {

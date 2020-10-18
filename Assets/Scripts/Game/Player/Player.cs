@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TimeMode;
+using GameManagerSpace;
 
 namespace Role.Playerspace
 {
@@ -19,7 +19,6 @@ namespace Role.Playerspace
         Control control;
         Animator animator;
         Vector2 movement = Vector2.zero;
-
 
         public Joystick joystick;
         bool isGameStarted = false;
@@ -46,7 +45,6 @@ namespace Role.Playerspace
         IEnumerator MoveToOriginal(System.Action callback, float sec)
         {
             yield return new WaitForSecondsRealtime(1f);
-            int n = 0;
             while (transform.position != Vector3.zero)
             {
                 yield return null;
@@ -57,10 +55,13 @@ namespace Role.Playerspace
         public void Hurt(int n)
         {
             if (control.IsHurt) return;
-            life -= n;
+            for (int i = 0; i < n; i++)
+            {
+                life--;
+                control.HurtHandling(life);
+            }
             if (life <= 0) Dead();
             else animator.SetTrigger("hurt");
-            control.HurtHandling(life);
         }
         void Dead()
         {
@@ -116,7 +117,7 @@ namespace Role.Playerspace
             control.BorderHandling(ref movement);
             animator.SetFloat("movement", Mathf.Abs(movement.x) + Mathf.Abs(movement.y));
             if (ableToFlip)
-                transform.localScale = new Vector3(transform.localScale.x > 0 ? movement.x >= 0 ? 1 : -1 : movement.x <= 0 ? -1 : 1, 1, 1);
+                transform.localScale = new Vector3(transform.localScale.x >= 0 ? movement.x >= 0 ? 1 : -1 : movement.x <= 0 ? -1 : 1, 1, 1);
             if (attackCounter > 0) attackCounter -= Time.deltaTime;
             if (attackCounter <= 0 && attackState > 0)
             {

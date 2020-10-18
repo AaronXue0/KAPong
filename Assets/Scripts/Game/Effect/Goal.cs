@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using GameSystem;
+using OldGameSystem;
 
 public class Goal : MonoBehaviour
 {

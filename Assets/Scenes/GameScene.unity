@@ -203,12 +203,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1355494824}
-        m_MethodName: GameRestart
-        m_Mode: 1
+        m_MethodName: GameScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -432,12 +432,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1355494824}
-        m_MethodName: GameMenu
-        m_Mode: 1
+        m_MethodName: GameScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1205,12 +1205,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1355494824}
-        m_MethodName: GameRestart
-        m_Mode: 1
+        m_MethodName: GameScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1639,12 +1639,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1355494824}
-        m_MethodName: GameMenu
-        m_Mode: 1
+        m_MethodName: GameScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2197,7 +2197,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1355494820}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2e3a5d75cf9844619c885152f0045bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 687b39643c4964a01be8d9288b92736a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiCanvas: {fileID: 136910255}
@@ -2208,7 +2208,6 @@ MonoBehaviour:
   maskPanel: {fileID: 403521605}
   evaluateCanvas: {fileID: 1917791414}
   toMenuClip: {fileID: 11400000, guid: 40e74c99fe50a4b2c8111e829f6ac7ce, type: 2}
-  revivalClip: {fileID: 0}
   target: {fileID: 4613582723968591091}
 --- !u!114 &1355494823
 MonoBehaviour:
@@ -2231,7 +2230,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1355494820}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c2147185b4a949f7962f3b1b0df58eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 97391b804a521473cb0c8d12c9f0c6f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!95 &1355494825
@@ -2262,7 +2261,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1355494820}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: fca6d8f6bbf504c2ea32d87f85c830ce, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 40e74c99fe50a4b2c8111e829f6ac7ce, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 2
@@ -4458,7 +4457,7 @@ PrefabInstance:
     - target: {fileID: 3881087803549984439, guid: ec536a7718376554185e4a856d5ae230,
         type: 3}
       propertyPath: deadZone
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3881087803815115470, guid: ec536a7718376554185e4a856d5ae230,
         type: 3}

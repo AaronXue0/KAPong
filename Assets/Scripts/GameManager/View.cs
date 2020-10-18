@@ -7,9 +7,9 @@ using DG.Tweening;
 using TMPro;
 using Role.Playerspace;
 
-namespace TimeMode
+namespace GameManagerSpace
 {
-    public class GameUIEffect : MonoBehaviour
+    public class View : MonoBehaviour
     {
         //Camera -> UI
         [Header("UI")]
@@ -22,7 +22,6 @@ namespace TimeMode
         public GameObject evaluateCanvas;
         [Header("Timeline")]
         public PlayableAsset toMenuClip;
-        public PlayableAsset revivalClip;
         [Header("Player")]
         public Transform target;
 
@@ -58,8 +57,8 @@ namespace TimeMode
             System.Action action = () => puaseButton.interactable = true;
             ObjectActive(pauseCanvas, false);
             DOLocalScale(resumeImage, new Vector3(10, 10, 0), 0f, null);
-            DOLocalMove(resumeImage, target.localPosition, 1f, action);
-            DOLocalScale(resumeImage, new Vector3(0, 0, 0), 2f, callback);
+            DOLocalMove(resumeImage, target.localPosition, 1.5f, action);
+            DOLocalScale(resumeImage, new Vector3(0, 0, 0), 1f, callback);
         }
         //Restart & Menu
         public void DOChangeScene()
@@ -68,15 +67,15 @@ namespace TimeMode
             ObjectActive(evaluateCanvas, false);
             TimelinePlay(toMenuClip);
         }
+        public void DOGameOver()
+        {
+            System.Action action = () => ObjectActive(evaluateCanvas, true);
+            StartCoroutine(ShowButtons(0.5f, evaluateCanvas.GetComponentsInChildren<Button>(), action));
+        }
         public void DORevival(System.Action callback, Player player)
         {
             ObjectActive(evaluateCanvas, false);
             player.Revival(callback);
-        }
-        public void DOGameOver()
-        {
-            System.Action action = () => ObjectActive(evaluateCanvas, true);
-            StartCoroutine(ShowButtons(0.5f,evaluateCanvas.GetComponentsInChildren<Button>(),action));
         }
         private void Awake()
         {
@@ -101,7 +100,6 @@ namespace TimeMode
         {
             obj.transform.DOLocalMove(pos, duration).SetUpdate(true).OnComplete(() => callback());
         }
-
         void DOLocalScale(GameObject obj, Vector2 scale, float duration, System.Action callback)
         {
             obj.transform.DOScale(scale, duration).SetUpdate(true).OnComplete(() => callback());
@@ -110,9 +108,8 @@ namespace TimeMode
         /// <summary>
         /// Color
         /// </summary>
-        void AlphaHandling(Image image, float fade, float duration) { image.DOFade(fade, duration); }
         void AlphaHandling(Image image, float fade, float duration, float delay, System.Action callback)
-        { image.DOFade(fade, duration).SetDelay(delay).OnComplete(() => callback()); }
+        { image.DOFade(fade, duration).SetUpdate(true).SetDelay(delay).OnComplete(() => callback()); }
         void AlphaHandling(Image[] image, float fade, float duration) { foreach (Image img in image) { img.DOFade(fade, duration).SetUpdate(true); } }
 
         /// <summary>
@@ -135,7 +132,7 @@ namespace TimeMode
         /// </summary>
         void SceneOpening(Image mask, Image[] ui, System.Action action, System.Action action1)
         {
-            AlphaHandling(mask, 1, 0);
+            AlphaHandling(mask, 1, 0, 0, null);
             AlphaHandling(ui, 0, 0);
             AlphaHandling(mask, 0, 1, 1, action);
             ZoomCameraField(60, 1f, 1f, action1);

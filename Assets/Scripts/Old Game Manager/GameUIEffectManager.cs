@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using Role.Playerspace;
 
-namespace GameSystem
+namespace OldGameSystem
 {
     public class GameUIEffectManager : MonoBehaviour
     {

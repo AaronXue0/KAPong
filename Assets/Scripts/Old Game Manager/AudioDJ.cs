@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameSystem
+namespace OldGameSystem
 {
     public class AudioDJ : MonoBehaviour
     {

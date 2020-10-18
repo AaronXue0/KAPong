@@ -5,7 +5,7 @@ using DG.Tweening;
 using Role.Playerspace;
 using Role.BallSpace;
 
-namespace GameSystem
+namespace OldGameSystem
 {
     public class GameManager : MonoBehaviour
     {

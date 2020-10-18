@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TimeMode
+namespace GameManagerSpace
 {
-    public class GameEvent
+    public class Model
     {
         float score = 0;
         public float Score { set { score += value; } get { return score; } }

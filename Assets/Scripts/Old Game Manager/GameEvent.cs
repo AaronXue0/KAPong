@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-namespace GameSystem
+namespace OldGameSystem
 {
     public class GameEvent : MonoBehaviour
     {

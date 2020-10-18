@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameSystem;
+using OldGameSystem;
 
 namespace Role.BallSpace
 {
