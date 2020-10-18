@@ -13,55 +13,43 @@ namespace TimeMode
         GameEvent gameEvent = new GameEvent();
         GameUIEffect gameUIEffect;
 
-        public int selectedSceneID;
-
         Player player;
+        int selectedSceneID;
         bool isGameStarted = false;
 
-        public void GameMenu()
+        public void GameRevival()
         {
-            selectedSceneID = 1;
-            gameUIEffect.DOMenu();
+            gameUIEffect.DORevival(GameStart, player);
         }
-
-        public void GameRestart()
+        public void GameOver()
         {
-            selectedSceneID = 2;
-            gameUIEffect.DOMenu();
+            TimeScale(0);
+            gameUIEffect.DOGameOver();
         }
-
+        public void GameScene(int n)
+        {
+            selectedSceneID = n;
+            gameUIEffect.DOChangeScene();
+        }
         public void ChangeScene()
         {
-            Time.timeScale = 1;
+            TimeScale(1);
             SceneManager.LoadScene(selectedSceneID, LoadSceneMode.Single);
         }
-
         public void GamePause()
         {
-            Time.timeScale = 0;
+            TimeScale(0);
             gameUIEffect.DOPause();
         }
-
         public void GameResume()
         {
-            gameUIEffect.DOResume(ResetTimeScale);
+            gameUIEffect.DOResume(TimeScale);
         }
-
-        void ResetTimeScale() { Time.timeScale = 1; }
-
-        private void Awake()
-        {
-            gameUIEffect = GetComponent<GameUIEffect>();
-        }
-        void Start()
-        {
-            gameUIEffect.SetScoreText(gameEvent.Score);
-            m_scoreEvent.AddListener(ScoreAction);
-            gameUIEffect.SceneOpening(GameStart);
-            player = FindObjectOfType<Player>();
-        }
+        void TimeScale() { Time.timeScale = 1; }
+        void TimeScale(int n) { Time.timeScale = n; }
         void GameStart()
         {
+            TimeScale();
             isGameStarted = true;
             player.AbleToMove(true);
         }
@@ -74,6 +62,17 @@ namespace TimeMode
         {
             gameEvent.Score = Time.deltaTime;
             gameUIEffect.SetScoreText(gameEvent.Score);
+        }
+        private void Awake()
+        {
+            gameUIEffect = GetComponent<GameUIEffect>();
+        }
+        void Start()
+        {
+            player = FindObjectOfType<Player>();
+            gameUIEffect.SetScoreText(gameEvent.Score);
+            m_scoreEvent.AddListener(ScoreAction);
+            gameUIEffect.SceneOpening(GameStart);
         }
     }
 }

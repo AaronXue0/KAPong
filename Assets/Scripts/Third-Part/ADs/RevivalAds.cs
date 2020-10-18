@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
-using GameSystem;
+using TimeMode;
 
 public class RevivalAds : MonoBehaviour, IUnityAdsListener
 {
-    #if UNITY_IOS
+#if UNITY_IOS
     private string gameId = "3796674";
-    #elif UNITY_ANDROID
+#elif UNITY_ANDROID
     private string gameId = "3796675";
-    #endif
+#endif
     string myPlacementId = "rewardedVideo";
-    bool testMode = false;
+    bool testMode = true;
 
     GameManager gm;
 
@@ -43,7 +43,7 @@ public class RevivalAds : MonoBehaviour, IUnityAdsListener
         // Define conditional logic for each ad completion status:
         if (showResult == ShowResult.Finished)
         {
-            gm.Revival();
+            gm.GameRevival();
             gameObject.SetActive(false);
         }
         else if (showResult == ShowResult.Skipped)

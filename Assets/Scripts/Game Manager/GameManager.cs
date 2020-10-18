@@ -112,7 +112,7 @@ namespace GameSystem
         }
         public void PlayerHurt()
         {
-            player.Hurt();
+            player.Hurt(1);
         }
         private void Update()
         {

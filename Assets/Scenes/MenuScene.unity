@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2281,6 +2281,12 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: https://www.facebook.com/KA-Pong-106985787821633
       objectReference: {fileID: 0}
+    - target: {fileID: 4496424670897941940, guid: 54903e798beb44c78b83b10cae9bbc5d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9cf0a9a4de70f4ecb95c28d579eb7135,
+        type: 3}
     - target: {fileID: 4496424670897941941, guid: 54903e798beb44c78b83b10cae9bbc5d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

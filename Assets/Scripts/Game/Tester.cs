@@ -47,6 +47,7 @@ public class Tester : MonoBehaviour
 
     void Update()
     {
+        movement= new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
         animator.SetFloat("movement", Mathf.Abs(movement.x) + Mathf.Abs(movement.y));
         transform.localScale = new Vector3(transform.localScale.x > 0 ? movement.x >= 0 ? 1 : -1 : movement.x <= 0 ? -1 : 1, 1, 1);
         if (attackCounter > 0) attackCounter -= Time.deltaTime;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using GameSystem;
+using TimeMode;
 
 namespace Role.Playerspace
 {
@@ -20,17 +20,44 @@ namespace Role.Playerspace
         Animator animator;
         Vector2 movement = Vector2.zero;
 
-        public Joystick joystick;
 
+        public Joystick joystick;
+        bool isGameStarted = false;
         bool isAttacking = false;
         int attackState = 0;
         public float attackStateDuration = 1.25f;
         public float attackCounter = 0f;
 
-        public void Hurt()
+        public void Revival(System.Action callback)
+        {
+            float time = 0;
+            RuntimeAnimatorController ac = animator.runtimeAnimatorController;
+            for (int i = 0; i < ac.animationClips.Length; i++)
+            {
+                if (ac.animationClips[i].name == "UnDoDead")
+                {
+                    time = ac.animationClips[i].length;
+                }
+            }
+            isGameStarted = false;
+            animator.SetTrigger("revival");
+            StartCoroutine(MoveToOriginal(callback, time));
+        }
+        IEnumerator MoveToOriginal(System.Action callback, float sec)
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            int n = 0;
+            while (transform.position != Vector3.zero)
+            {
+                yield return null;
+                transform.DOMove(Vector3.zero - transform.position, 2).SetUpdate(true);
+            }
+            callback();
+        }
+        public void Hurt(int n)
         {
             if (control.IsHurt) return;
-            life--;
+            life -= n;
             if (life <= 0) Dead();
             else animator.SetTrigger("hurt");
             control.HurtHandling(life);
@@ -44,6 +71,7 @@ namespace Role.Playerspace
         {
             if (state == true)
             {
+                isGameStarted = true;
                 Collider2D collider = GetComponent<Collider2D>();
                 collider.enabled = true;
                 control.Recovery(ref life);
@@ -51,6 +79,7 @@ namespace Role.Playerspace
             GetComponent<PlayerInput>().enabled = state;
             if (state == false)
             {
+                isGameStarted = false;
                 Collider2D collider = GetComponent<Collider2D>();
                 collider.enabled = false;
             }
@@ -80,7 +109,9 @@ namespace Role.Playerspace
         void AbleToAttack() { isAttacking = false; }
         private void Update()
         {
-            if (joystick == null) return;
+            if (Input.GetKeyDown(KeyCode.O)) Hurt(3);
+            if (Input.GetKeyDown(KeyCode.P)) Revival(AbleToAttack);
+            if (isGameStarted == false) return;
             movement = new Vector2(joystick.Horizontal, joystick.Vertical);
             control.BorderHandling(ref movement);
             animator.SetFloat("movement", Mathf.Abs(movement.x) + Mathf.Abs(movement.y));
@@ -109,7 +140,7 @@ namespace Role.Playerspace
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == "Thunder") Hurt();
+            if (other.tag == "Thunder") Hurt(1);
         }
     }
 
