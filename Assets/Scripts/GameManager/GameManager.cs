@@ -50,6 +50,7 @@ namespace GameManagerSpace
         void GameStart()
         {
             if(gameObject.activeSelf == false) gameObject.SetActive(true);
+            TimeScale();
             isGameStarted = true;
             player.AbleToMove(true);
         }

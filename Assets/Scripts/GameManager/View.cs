@@ -20,6 +20,7 @@ namespace GameManagerSpace
         public GameObject resumeImage;
         public GameObject maskPanel;
         public GameObject evaluateCanvas;
+        public TextMeshProUGUI evaluateText;
         [Header("Timeline")]
         public PlayableAsset toMenuClip;
         [Header("Player")]
@@ -70,6 +71,7 @@ namespace GameManagerSpace
         public void DOGameOver()
         {
             System.Action action = () => ObjectActive(evaluateCanvas, true);
+            evaluateText.text = scoreText.text;
             StartCoroutine(ShowButtons(0.5f, evaluateCanvas.GetComponentsInChildren<Button>(), action));
         }
         public void DORevival(System.Action callback, Player player)
