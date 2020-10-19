@@ -6,7 +6,7 @@
 [Ll]ogs/
 [Ss]creenshots/
 Assets/AssetStoreTools*
-Assets/Firebase*
+Assets/Firebase/
 # Visual Studio cache directory
 .vs/
 .vscode/
