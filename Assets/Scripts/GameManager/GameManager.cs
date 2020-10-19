@@ -10,13 +10,20 @@ namespace GameManagerSpace
     public class GameManager : MonoBehaviour
     {
         UnityEvent m_scoreEvent = new UnityEvent();
-        Model model = new Model();
+        Model model = Model.Instance;
         View view;
+        GameObjectPool pool;
 
         Player player;
         int selectedSceneID;
         bool isGameStarted = false;
+        float time = 0;
+        float timeDuration = 0.5f;
 
+        public void InstantiateBall()
+        {
+            // Instantiate(model.Ball, model.InstantiatePlace(1), new Quaternion());
+        }
         public void GameRevival()
         {
             view.DORevival(GameStart, player);
@@ -49,7 +56,7 @@ namespace GameManagerSpace
         void TimeScale(int n) { Time.timeScale = n; }
         void GameStart()
         {
-            if(gameObject.activeSelf == false) gameObject.SetActive(true);
+            if (gameObject.activeSelf == false) gameObject.SetActive(true);
             TimeScale();
             isGameStarted = true;
             player.AbleToMove(true);
@@ -62,18 +69,25 @@ namespace GameManagerSpace
         private void Awake()
         {
             view = GetComponent<View>();
+            pool = GetComponent<GameObjectPool>();
         }
         void Start()
         {
             player = FindObjectOfType<Player>();
-            view.SetScoreText(model.Score);
             m_scoreEvent.AddListener(ScoreAction);
             view.SceneOpening(GameStart);
         }
+
         void Update()
         {
             if (isGameStarted == false) return;
             m_scoreEvent.Invoke();
+            if (Time.time > time + timeDuration)
+            {
+                time = Time.time;
+                pool.ReUse(model.InstantiatePlace(1), new Quaternion());
+            }
+            if (timeDuration > 0.1f) timeDuration -= Time.deltaTime * 0.5f;
         }
     }
 }

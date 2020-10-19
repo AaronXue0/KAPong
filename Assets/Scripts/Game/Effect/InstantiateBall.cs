@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using OldGameSystem;
+using GameManagerSpace;
 
 namespace Role.InstantiateBallSpace
 {
@@ -17,36 +17,16 @@ namespace Role.InstantiateBallSpace
         float hitSpeed = 0;
         [SerializeField]
         float constantSpeed = 2;
-        [Header("Abilities")]
-        [SerializeField]
-        float hitCount = 0;
-        [SerializeField]
-        float bounceCount = 0;
-        [SerializeField]
-        float sineDuration = 5f;
 
-        [SerializeField]
-        GameObject goalEffect = null;
 
         [Header("Variables")]
         Vector2 movement = Vector2.zero;
         public Vector2 Movement { get { return movement; } }
-        public bool isDoingAbility = false;
-        public bool IsDoingAbility { get { return isDoingAbility; } }
-        public AbilityState state;
         float time;
-        [SerializeField]
-        GameObject insBall;
 
         GameManager gm;
         Rigidbody2D rb;
 
-        public void callbackEarse()
-        {
-            state = AbilityState.None;
-            Move(movement.normalized * constantSpeed);
-            isDoingAbility = false;
-        }
         public void Move(Vector2 velocity)
         {
             if (rb == null) return;
@@ -59,15 +39,12 @@ namespace Role.InstantiateBallSpace
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == "Player" && movement.magnitude >= 0.35f) { gm.PlayerHurt(); Destroy(this.gameObject); }
-            if (other.tag == "Player Sword" || other.tag == "Enemy Sword") hitCount++;
-            //control.BounceHandling(ref hitSpeed, ref movement, transform, other);
+            if (other.tag == "Player" && movement.magnitude >= 0.35f)
+            {
+                RecoveryBall();
+            }
             switch (other.tag)
             {
-                case "Player":
-                    if (Mathf.Abs(movement.x) <= 0.2f) return;
-                    movement = new Vector2(0.2f, 0);
-                    break;
                 case "Player Sword":
                     movement = transform.position - other.transform.position;
                     hitSpeed = movement.magnitude;
@@ -75,28 +52,9 @@ namespace Role.InstantiateBallSpace
             }
             Move(movement * hitSpeed);
         }
-        /*private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.collider.tag == "Flag")
-            {
-                if (other.collider.name == "Right")
-                {
-                    Invoke("Goal", 0.5f);
-                    Instantiate(goalEffect, (Vector2)transform.position, Quaternion.identity);
-                }
-                if (other.collider.name == "Left") gm.LostPoint();
-            }
-            bounceCount++;
-            //control.BounceHandling(ref hitSpeed, ref movement, transform, other);
-        }*/
-        void Goal()
-        {
-            gm.Goal(hitSpeed, (int)state);
-        }
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
-            //ability = GetComponent<Ability>();
         }
         private void Start()
         {
@@ -105,16 +63,12 @@ namespace Role.InstantiateBallSpace
             gm = FindObjectOfType<GameManager>();
             InvokeRepeating("ConstantSpeedUp", 8f, 0.1f);
         }
-        private void FixedUpdate()
-        {
-
-        }
         private void Update()
         {
             if (movement != Vector2.zero) TowardToMovingDirection();
             if (constantSpeed >= maxSpeed) constantSpeed = maxSpeed;
             time += Time.deltaTime;
-            if (time > 10) Destroy(insBall);
+            if (time > 3) RecoveryBall();
         }
         void ConstantSpeedUp()
         {
@@ -134,6 +88,18 @@ namespace Role.InstantiateBallSpace
             else randomY = Random.Range(-4.0f, 4.0f);
             randomMovement = new Vector2(randomX, randomY);
             return randomMovement;
+        }
+        void RecoveryBall()
+        {
+            FindObjectOfType<GameObjectPool>().Recovery(this.gameObject);
+        }
+        public void ReUse()
+        {
+            time = 0;
+            CancelInvoke();
+            movement = InstantiateRandomMovement();
+            Move(movement);
+            InvokeRepeating("ConstantSpeedUp", 8f, 0.1f);
         }
     }
 

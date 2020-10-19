@@ -141,7 +141,7 @@ namespace Role.Playerspace
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == "Thunder") Hurt(1);
+            // if (other.tag == "Ball") Hurt(1);
         }
     }
 

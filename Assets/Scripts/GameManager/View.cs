@@ -70,9 +70,12 @@ namespace GameManagerSpace
         }
         public void DOGameOver()
         {
-            System.Action action = () => ObjectActive(evaluateCanvas, true);
+            StartCoroutine(ShowButtons(0.5f, evaluateCanvas.GetComponentsInChildren<Button>(), GameOverCallback));
+        }
+        void GameOverCallback(){
+             ObjectActive(evaluateCanvas, true);
             evaluateText.text = scoreText.text;
-            StartCoroutine(ShowButtons(0.5f, evaluateCanvas.GetComponentsInChildren<Button>(), action));
+            scoreText.text = "";
         }
         public void DORevival(System.Action callback, Player player)
         {

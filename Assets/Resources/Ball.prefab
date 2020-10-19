@@ -13,12 +13,10 @@ GameObject:
   - component: {fileID: 7708533629856941101}
   - component: {fileID: 7708533629856941102}
   - component: {fileID: 7708533629856941103}
-  - component: {fileID: 7708533629856941089}
-  - component: {fileID: 6243769434559667875}
   - component: {fileID: 5753256806164174673}
   m_Layer: 0
-  m_Name: Mode1Ball
-  m_TagString: Untagged
+  m_Name: Ball
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,42 +141,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &7708533629856941089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7708533629856941090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1184010845fc94555832b838598b6caa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waveFrequency: 10
-  waveMagnitude: 2
---- !u!114 &6243769434559667875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7708533629856941090}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9afcd803a01c34e038998eb694486f86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 4
-  hitSpeed: 0
-  constantSpeed: 3
-  hitCount: 0
-  bounceCount: 0
-  sineDuration: 5
-  goalEffect: {fileID: 5973778326571679000, guid: 48ecc95787d1b49bba9d5fe077ed5f86,
-    type: 3}
-  isDoingAbility: 0
-  state: 0
 --- !u!114 &5753256806164174673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,10 +156,3 @@ MonoBehaviour:
   maxSpeed: 5
   hitSpeed: 1
   constantSpeed: 2
-  hitCount: 0
-  bounceCount: 0
-  sineDuration: 5
-  goalEffect: {fileID: 0}
-  isDoingAbility: 0
-  state: 0
-  insBall: {fileID: 7708533629856941090}
